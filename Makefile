@@ -25,7 +25,7 @@ MODULE_ROOT=${GIT_ROOT}/${PRODUCT_NAME}
 
 PKG_NAME=sql
 PKG_VER=$(shell git describe --abbrev=0 --tags)
-PKG_COVER=${PKG_NAME}-cover
+PKG_COVER=${PKG_NAME}server-cover
 PKG_SRC_ROOT=${PKG_NAME}
 PKG=${MODULE_ROOT}/${PKG_SRC_ROOT}
 
