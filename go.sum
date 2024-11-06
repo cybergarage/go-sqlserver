@@ -1,0 +1,4 @@
+github.com/cybergarage/go-mysql v1.0.6 h1:fSwNjVPKSh3nWV4UBH/FCt1Fc1+jIFTPUhtROA3MwVE=
+github.com/cybergarage/go-mysql v1.0.6/go.mod h1:OPjrrGimcXXCc+rUQF0ASZ1umY93cjhhx+521SSOMQQ=
+github.com/cybergarage/go-sqlparser v1.3.5 h1:B7KjW6Fb2LXAEEcGv27LMXUM5KIXCOgJ8IGx8GkSt2o=
+github.com/cybergarage/go-sqlparser v1.3.5/go.mod h1:NseayH6Fh8hoUzWf6ut6j5QSUcWB7JFetimXo9mWZL8=
