@@ -4,7 +4,7 @@ go 1.22.0
 
 require (
 	github.com/cybergarage/go-logger v1.3.8
-	github.com/cybergarage/go-postgresql v1.5.7
+	github.com/cybergarage/go-postgresql v1.5.8-0.20241106235658-de8c06cc0c44
 	github.com/cybergarage/go-sqlparser v1.3.5
 )
 
