@@ -14,23 +14,60 @@
 
 package sql
 
+import (
+	"errors"
+
+	"github.com/cybergarage/go-mysql/mysql"
+	"github.com/cybergarage/go-postgresql/postgresql"
+)
+
 // Server represents a SQL server.
 type Server struct {
+	myServer mysql.Server
+	pgServer *postgresql.Server
 }
 
 // NewServer creates a new SQL server.
 func NewServer() *Server {
-	return &Server{}
+	return &Server{
+		myServer: mysql.NewServer(),
+		pgServer: postgresql.NewServer(),
+	}
 }
 
 // Start starts the SQL server.
 func (server *Server) Start() error {
+	type starter interface {
+		Start() error
+	}
+	starters := []starter{
+		server.myServer,
+		server.pgServer,
+	}
+	for _, s := range starters {
+		if err := s.Start(); err != nil {
+			return server.Stop()
+		}
+	}
 	return nil
 }
 
 // Stop stops the SQL server.
 func (server *Server) Stop() error {
-	return nil
+	type stopper interface {
+		Stop() error
+	}
+	stoppers := []stopper{
+		server.myServer,
+		server.pgServer,
+	}
+	var err error
+	for _, s := range stoppers {
+		if e := s.Stop(); e != nil {
+			err = errors.Join(err, e)
+		}
+	}
+	return err
 }
 
 // Restart restarts the SQL server.
