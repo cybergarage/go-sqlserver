@@ -24,7 +24,7 @@ import (
 // Server represents a SQL server.
 type Server struct {
 	myServer mysql.Server
-	pgServer *postgresql.Server
+	pgServer postgresql.Server
 }
 
 // NewServer creates a new SQL server.
