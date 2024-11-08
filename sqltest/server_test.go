@@ -17,9 +17,9 @@ package sqltest
 import (
 	"testing"
 
-	"github.com/cybergarage/go-sqlserver/sql"
+	"github.com/cybergarage/go-sqlserver/examples/go-sqlserver/server"
 )
 
 func TestServer(t *testing.T) {
-	sql.NewServer()
+	server.NewServer()
 }
