@@ -1,0 +1,18 @@
+Feature,SQL92,PostgreSQL,MySQL,SQLite
+Create Table,Supported,Supported,Supported,Supported
+Drop Table,Supported,Supported,Supported,Supported
+Alter Table,Supported,Supported,Supported,Supported
+Create Index,Supported,Supported,Supported,Supported
+Drop Index,Supported,Supported,Supported,Supported
+Create View,Supported,Supported,Supported,Supported
+Drop View,Supported,Supported,Supported,Supported
+Primary Key,Supported,Supported,Supported,Supported
+Foreign Key,Supported,Supported,Supported,Supported
+Unique Constraint,Supported,Supported,Supported,Supported
+Check Constraint,Supported,Supported,Supported,Supported
+Default Values,Supported,Supported,Supported,Supported
+Auto Increment,Not Supported,Supported (SERIAL),Supported (AUTO_INCREMENT),Supported (AUTOINCREMENT)
+Temporary Tables,Supported,Supported,Supported,Supported
+Schemas,Supported,Supported,Supported,Not Supported
+Tablespaces,Supported,Supported,Supported,Not Supported
+Sequences,Supported,Supported,Supported,Not Supported
