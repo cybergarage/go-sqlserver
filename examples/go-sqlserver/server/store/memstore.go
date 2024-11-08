@@ -18,9 +18,10 @@ import (
 	"fmt"
 
 	"github.com/cybergarage/go-logger/log"
+	"github.com/cybergarage/go-mysql/mysql/errors"
+	"github.com/cybergarage/go-mysql/mysql/net"
+	"github.com/cybergarage/go-mysql/mysql/query"
 	"github.com/cybergarage/go-sqlparser/sql"
-	"github.com/cybergarage/go-sqlparser/sql/errors"
-	"github.com/cybergarage/go-sqlparser/sql/net"
 )
 
 type MemStore struct {
@@ -50,32 +51,32 @@ func (store *MemStore) LookupDatabaseTable(conn net.Conn, dbName string, tblName
 }
 
 // Begin should handle a BEGIN statement.
-func (store *MemStore) Begin(conn net.Conn, stmt sql.Begin) error {
+func (store *MemStore) Begin(conn net.Conn, stmt query.Begin) error {
 	log.Debugf("%v", stmt)
 	return errors.ErrNotImplemented
 }
 
 // Commit should handle a COMMIT statement.
-func (store *MemStore) Commit(conn net.Conn, stmt sql.Commit) error {
+func (store *MemStore) Commit(conn net.Conn, stmt query.Commit) error {
 	log.Debugf("%v", stmt)
 	return errors.ErrNotImplemented
 }
 
 // Rollback should handle a ROLLBACK statement.
-func (store *MemStore) Rollback(conn net.Conn, stmt sql.Rollback) error {
+func (store *MemStore) Rollback(conn net.Conn, stmt query.Rollback) error {
 	log.Debugf("%v", stmt)
 	return errors.ErrNotImplemented
 }
 
 // Use should handle a USE statement.
-func (store *MemStore) Use(conn net.Conn, stmt sql.Use) error {
+func (store *MemStore) Use(conn net.Conn, stmt query.Use) error {
 	log.Debugf("%v", stmt)
 	conn.SetDatabase(stmt.DatabaseName())
 	return nil
 }
 
 // CreateDatabase should handle a CREATE database statement.
-func (store *MemStore) CreateDatabase(conn net.Conn, stmt sql.CreateDatabase) error {
+func (store *MemStore) CreateDatabase(conn net.Conn, stmt query.CreateDatabase) error {
 	log.Debugf("%v", stmt)
 
 	dbName := stmt.DatabaseName()
@@ -91,13 +92,13 @@ func (store *MemStore) CreateDatabase(conn net.Conn, stmt sql.CreateDatabase) er
 }
 
 // AlterDatabase should handle a ALTER database statement.
-func (store *MemStore) AlterDatabase(conn net.Conn, stmt sql.AlterDatabase) error {
+func (store *MemStore) AlterDatabase(conn net.Conn, stmt query.AlterDatabase) error {
 	log.Debugf("%v", stmt)
 	return errors.ErrNotImplemented
 }
 
 // DropDatabase should handle a DROP database statement.
-func (store *MemStore) DropDatabase(conn net.Conn, stmt sql.DropDatabase) error {
+func (store *MemStore) DropDatabase(conn net.Conn, stmt query.DropDatabase) error {
 	log.Debugf("%v", stmt)
 
 	dbName := stmt.DatabaseName()
@@ -112,7 +113,7 @@ func (store *MemStore) DropDatabase(conn net.Conn, stmt sql.DropDatabase) error 
 }
 
 // CreateTable should handle a CREATE table statement.
-func (store *MemStore) CreateTable(conn net.Conn, stmt sql.CreateTable) error {
+func (store *MemStore) CreateTable(conn net.Conn, stmt query.CreateTable) error {
 	log.Debugf("%v", stmt)
 
 	dbName := conn.Database()
@@ -134,13 +135,13 @@ func (store *MemStore) CreateTable(conn net.Conn, stmt sql.CreateTable) error {
 }
 
 // AlterTable should handle a ALTER table statement.
-func (store *MemStore) AlterTable(conn net.Conn, stmt sql.AlterTable) error {
+func (store *MemStore) AlterTable(conn net.Conn, stmt query.AlterTable) error {
 	// log.Debugf("%v", stmt)
 	return errors.ErrNotImplemented
 }
 
 // DropTable should handle a DROP table statement.
-func (store *MemStore) DropTable(conn net.Conn, stmt sql.DropTable) error {
+func (store *MemStore) DropTable(conn net.Conn, stmt query.DropTable) error {
 	log.Debugf("%v", stmt)
 
 	dbName := conn.Database()
@@ -149,7 +150,7 @@ func (store *MemStore) DropTable(conn net.Conn, stmt sql.DropTable) error {
 		return errors.NewErrDatabaseNotExist(dbName)
 	}
 	for _, table := range stmt.Tables() {
-		tableName := table.Name()
+		tableName := table.TableName()
 		table, ok := db.LookupTable(tableName)
 		if !ok {
 			if stmt.IfExists() {
@@ -166,7 +167,7 @@ func (store *MemStore) DropTable(conn net.Conn, stmt sql.DropTable) error {
 }
 
 // Insert should handle a INSERT statement.
-func (store *MemStore) Insert(conn net.Conn, stmt sql.Insert) error {
+func (store *MemStore) Insert(conn net.Conn, stmt query.Insert) error {
 	log.Debugf("%v", stmt)
 
 	dbName := conn.Database()
@@ -185,7 +186,7 @@ func (store *MemStore) Insert(conn net.Conn, stmt sql.Insert) error {
 }
 
 // Update should handle a UPDATE statement.
-func (store *MemStore) Update(conn net.Conn, stmt sql.Update) (sql.ResultSet, error) {
+func (store *MemStore) Update(conn net.Conn, stmt query.Update) (sql.ResultSet, error) {
 	log.Debugf("%v", stmt)
 
 	_, tbl, err := store.LookupDatabaseTable(conn, conn.Database(), stmt.TableName())
@@ -204,7 +205,7 @@ func (store *MemStore) Update(conn net.Conn, stmt sql.Update) (sql.ResultSet, er
 }
 
 // Delete should handle a DELETE statement.
-func (store *MemStore) Delete(conn net.Conn, stmt sql.Delete) (sql.ResultSet, error) {
+func (store *MemStore) Delete(conn net.Conn, stmt query.Delete) (sql.ResultSet, error) {
 	log.Debugf("%v", stmt)
 
 	_, tbl, err := store.LookupDatabaseTable(conn, conn.Database(), stmt.TableName())
@@ -223,7 +224,7 @@ func (store *MemStore) Delete(conn net.Conn, stmt sql.Delete) (sql.ResultSet, er
 }
 
 // Select should handle a SELECT statement.
-func (store *MemStore) Select(conn net.Conn, stmt sql.Select) (sql.ResultSet, error) {
+func (store *MemStore) Select(conn net.Conn, stmt query.Select) (sql.ResultSet, error) {
 	log.Debugf("%v", stmt)
 
 	from := stmt.From()
