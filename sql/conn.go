@@ -15,13 +15,13 @@
 package sql
 
 import (
-	"github.com/cybergarage/go-sqlparser/sql"
+	"github.com/cybergarage/go-sqlparser/sql/net"
 )
 
 // ConnID represents a connection ID.
-type ConnID = sql.ConnID
+type ConnID = net.ConnID
 
 // Conn represents a connection.
 type Conn interface {
-	sql.Conn
+	net.Conn
 }
