@@ -4,9 +4,9 @@ go 1.22.0
 
 require (
 	github.com/cybergarage/go-logger v1.3.8
-	github.com/cybergarage/go-mysql v1.0.8-0.20241107105759-ecab0b7fe2ef
-	github.com/cybergarage/go-postgresql v1.5.8-0.20241106235658-de8c06cc0c44
-	github.com/cybergarage/go-sqlparser v1.3.7-0.20241109175136-ad4cc056c6d4
+	github.com/cybergarage/go-mysql v1.1.1-0.20241117140832-6a3acd30657b
+	github.com/cybergarage/go-postgresql v1.5.10-0.20241117133523-b8ef02ae63a2
+	github.com/cybergarage/go-sqlparser v1.4.0
 )
 
 require (

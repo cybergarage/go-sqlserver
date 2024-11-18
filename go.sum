@@ -6,8 +6,12 @@ github.com/cybergarage/go-logger v1.3.8 h1:Law2nkLjH5tJDNISMVUjT7F46x4DaZuBUyWUL
 github.com/cybergarage/go-logger v1.3.8/go.mod h1:a7B/AZjPoA1W8EU/458vdCv6YWtRJI7Q9rofUcZjiho=
 github.com/cybergarage/go-mysql v1.0.8-0.20241107105759-ecab0b7fe2ef h1:ttYLSakwOD9jf2gakcG5qUfLz+Ikt4i3rDWZqZE6+Ug=
 github.com/cybergarage/go-mysql v1.0.8-0.20241107105759-ecab0b7fe2ef/go.mod h1:cQM4wUrvUKZUj4PG8/bSj0UWVnxgEv3l7Tc1MF1e0Rs=
+github.com/cybergarage/go-mysql v1.1.1-0.20241117140832-6a3acd30657b h1:kLzlaWYTj1sAp1XBpaPKxwY9TZBDBeTEmK/tHzyAvps=
+github.com/cybergarage/go-mysql v1.1.1-0.20241117140832-6a3acd30657b/go.mod h1:1OCXbcHB6VzsJBeI4ejCiWgUYzt+nJb7kNVdfujtgoY=
 github.com/cybergarage/go-postgresql v1.5.8-0.20241106235658-de8c06cc0c44 h1:GB85W+tXvcY1pukmIqp6E0TLA0pKSGqhqX1EFscmmK0=
 github.com/cybergarage/go-postgresql v1.5.8-0.20241106235658-de8c06cc0c44/go.mod h1:x0/rBjSsAaB2Sb8/8kUHThLOlgCj65hxuKqBhbg1dHs=
+github.com/cybergarage/go-postgresql v1.5.10-0.20241117133523-b8ef02ae63a2 h1:K45iquiN2fHqiSZF7TdgZireR7PY+QMCBCmrUsm+j1Q=
+github.com/cybergarage/go-postgresql v1.5.10-0.20241117133523-b8ef02ae63a2/go.mod h1:GjjELwKLzpfdN7RnZ34mZ2QNljuUNaohtRVt9AfM4cE=
 github.com/cybergarage/go-safecast v1.2.5 h1:ZDiKmdsE15RTKETRXKAKbYTDIhAzNONwJEfCaxmhkvU=
 github.com/cybergarage/go-safecast v1.2.5/go.mod h1:fw2lE/5DIOjmyPj5kx0aYZSAL2bSFoh/Zith5TWVTz8=
 github.com/cybergarage/go-sasl v1.2.1 h1:m+WtlO9B0LjQ82On35mmQTcyKotHizzT+26cRdHRkrM=
@@ -16,6 +20,8 @@ github.com/cybergarage/go-sqlparser v1.3.5 h1:B7KjW6Fb2LXAEEcGv27LMXUM5KIXCOgJ8I
 github.com/cybergarage/go-sqlparser v1.3.5/go.mod h1:NseayH6Fh8hoUzWf6ut6j5QSUcWB7JFetimXo9mWZL8=
 github.com/cybergarage/go-sqlparser v1.3.7-0.20241109175136-ad4cc056c6d4 h1:hsZoCg8smipxr58o8HihOJBcFMJeZMP7dYRqilz+Cy4=
 github.com/cybergarage/go-sqlparser v1.3.7-0.20241109175136-ad4cc056c6d4/go.mod h1:NseayH6Fh8hoUzWf6ut6j5QSUcWB7JFetimXo9mWZL8=
+github.com/cybergarage/go-sqlparser v1.4.0 h1:fF4wG97E82y9XvM6ahk21kzGE3PpTDXw9I9Capgncjw=
+github.com/cybergarage/go-sqlparser v1.4.0/go.mod h1:NseayH6Fh8hoUzWf6ut6j5QSUcWB7JFetimXo9mWZL8=
 github.com/cybergarage/go-tracing v1.1.3 h1:UU7C7LRT6gaPmezl15PwNLrvIrdZCqFcZL1Iw/YzMlk=
 github.com/cybergarage/go-tracing v1.1.3/go.mod h1:SEt30gfwWVQB4gMpaydAos7XqNMcIbIvtlFILP/99/Q=
 github.com/go-sql-driver/mysql v1.8.1 h1:LedoTUt/eveggdHS9qUFC1EFSa8bU2+1pZjSRpvNJ1Y=
