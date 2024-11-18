@@ -313,6 +313,12 @@ func (store *MemStore) Select(conn net.Conn, stmt query.Select) (resultset.Resul
 	return rs, nil
 }
 
+// SystemSelect should handle a system SELECT statement.
+func (store *MemStore) SystemSelect(conn net.Conn, stmt query.Select) (resultset.ResultSet, error) {
+	log.Debugf("%v", stmt)
+	return nil, errors.ErrNotImplemented
+}
+
 // ParserError should handle a parser error.
 func (store *MemStore) ParserError(conn net.Conn, q string, err error) error {
 	log.Debugf("%v", err)
