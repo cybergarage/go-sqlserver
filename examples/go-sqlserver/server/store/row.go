@@ -41,7 +41,7 @@ func NewRowWith(cols []query.Column) Row {
 
 // IsMatched returns true if the row is matched with the specified condition.
 func (row Row) IsMatched(cond query.Condition) bool {
-	if cond.IsEmpty() {
+	if !cond.HasConditions() {
 		return true
 	}
 
@@ -152,7 +152,7 @@ func (row Row) Update(colums []query.Column) {
 			}
 			row[colName] = v
 		} else {
-			if col.HasLiteral() {
+			if col.HasValue() {
 				row[colName] = col.Value()
 			}
 		}
