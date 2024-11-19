@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package sqltest
+package postgresql
 
 import (
 	"testing"
 
 	"github.com/cybergarage/go-logger/log"
-	"github.com/cybergarage/go-postgresql/postgresqltest/server"
+	"github.com/cybergarage/go-sqlserver/sqltest/server"
 	"github.com/cybergarage/go-sqltest/sqltest"
 )
 
