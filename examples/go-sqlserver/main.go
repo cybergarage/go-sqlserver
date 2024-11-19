@@ -44,7 +44,7 @@ import (
 )
 
 const (
-	ProgramName = " go-mysqld"
+	ProgramName = " go-sqlserver"
 )
 
 func main() {

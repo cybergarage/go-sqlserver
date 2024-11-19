@@ -1,4 +1,4 @@
-// Copyright (C) 2024 The go-sqlserver Authors. All rights reserved.
+// Copyright (C) 2019 The go-sqlserver Authors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,65 +15,20 @@
 package sql
 
 import (
-	"errors"
-
-	"github.com/cybergarage/go-mysql/mysql"
-	"github.com/cybergarage/go-postgresql/postgresql"
+	"github.com/cybergarage/go-sqlparser/sql"
 )
 
-// Server represents a SQL server.
-type Server struct {
-	myServer mysql.Server
-	pgServer postgresql.Server
-}
+// SQLExecutor represents a SQL executor.
+type SQLExecutor = sql.Executor
 
-// NewServer creates a new SQL server.
-func NewServer() *Server {
-	return &Server{
-		myServer: mysql.NewServer(),
-		pgServer: postgresql.NewServer(),
-	}
-}
-
-// Start starts the SQL server.
-func (server *Server) Start() error {
-	type starter interface {
-		Start() error
-	}
-	starters := []starter{
-		server.myServer,
-		server.pgServer,
-	}
-	for _, s := range starters {
-		if err := s.Start(); err != nil {
-			return server.Stop()
-		}
-	}
-	return nil
-}
-
-// Stop stops the SQL server.
-func (server *Server) Stop() error {
-	type stopper interface {
-		Stop() error
-	}
-	stoppers := []stopper{
-		server.myServer,
-		server.pgServer,
-	}
-	var err error
-	for _, s := range stoppers {
-		if e := s.Stop(); e != nil {
-			err = errors.Join(err, e)
-		}
-	}
-	return err
-}
-
-// Restart restarts the SQL server.
-func (server *Server) Restart() error {
-	if err := server.Stop(); err != nil {
-		return err
-	}
-	return server.Start()
+// Server represents a PostgreSQL protocol server.
+type Server interface {
+	// SetSQLExecutor sets a SQL executor.
+	SetSQLExecutor(SQLExecutor)
+	// Start starts the server.
+	Start() error
+	// Stop stops the server.
+	Stop() error
+	// Restart restarts the server.
+	Restart() error
 }
