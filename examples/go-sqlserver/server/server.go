@@ -22,7 +22,7 @@ import (
 // Server represents a test server.
 // This Server struct behave as ${hoge}CommandExecutor.
 type Server struct {
-	*sql.Server
+	sql.Server
 	Store
 }
 
@@ -32,7 +32,7 @@ func NewServerWithStore(store Store) *Server {
 		Server: sql.NewServer(),
 		Store:  store,
 	}
-	// server.SetQueryExecutor(store)
+	server.SetSQLExecutor(store)
 	return server
 }
 
