@@ -1,0 +1,11 @@
+= Data Model
+
+[format="csv", options="header, autowidth"]
+|====
+include::data/data_type.csv[]
+|====
+
+== References
+
+* https://en.wikipedia.org/wiki/SQL-92[SQL-92 - Wikipedia]
+** https://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt[The SQL-92 standard]
