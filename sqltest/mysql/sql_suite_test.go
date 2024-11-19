@@ -18,7 +18,7 @@ import (
 	"testing"
 
 	"github.com/cybergarage/go-logger/log"
-	"github.com/cybergarage/go-mysql/mysqltest/server"
+	"github.com/cybergarage/go-sqlserver/sqltest/server"
 	"github.com/cybergarage/go-sqltest/sqltest"
 )
 
