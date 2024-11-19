@@ -19,6 +19,7 @@ import (
 
 	"github.com/cybergarage/go-mysql/mysql"
 	"github.com/cybergarage/go-postgresql/postgresql"
+	"github.com/cybergarage/go-tracing/tracer"
 )
 
 // Server represents a SQL server.
@@ -33,6 +34,12 @@ func NewServer() Server {
 		myServer: mysql.NewServer(),
 		pgServer: postgresql.NewServer(),
 	}
+}
+
+// SetTracer sets a tracing tracer.
+func (server *server) SetTracer(tracer tracer.Tracer) {
+	server.myServer.SetTracer(tracer)
+	server.pgServer.SetTracer(tracer)
 }
 
 // SetSQLExecutor sets a SQL executor.

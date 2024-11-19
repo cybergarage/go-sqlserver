@@ -16,6 +16,7 @@ package sql
 
 import (
 	"github.com/cybergarage/go-sqlparser/sql"
+	"github.com/cybergarage/go-tracing/tracer"
 )
 
 // SQLExecutor represents a SQL executor.
@@ -23,6 +24,8 @@ type SQLExecutor = sql.Executor
 
 // Server represents a PostgreSQL protocol server.
 type Server interface {
+	// SetTracer sets a tracing tracer.
+	SetTracer(tracer.Tracer)
 	// SetSQLExecutor sets a SQL executor.
 	SetSQLExecutor(SQLExecutor)
 	// Start starts the server.
