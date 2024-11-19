@@ -2,8 +2,8 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="576.74268"
-   height="416.88245"
+   width="80.792587"
+   height="367.73376"
    id="svg2"
    version="1.1"
    inkscape:version="1.3.2 (091e20e, 2023-11-25)"
@@ -149,15 +149,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="4"
-     inkscape:cx="311.25"
-     inkscape:cy="270.25"
+     inkscape:cx="2.5"
+     inkscape:cy="135.5"
      inkscape:document-units="px"
      inkscape:current-layer="layer2"
      showgrid="true"
      showguides="false"
      inkscape:window-width="2560"
      inkscape:window-height="1387"
-     inkscape:window-x="2647"
+     inkscape:window-x="2560"
      inkscape:window-y="25"
      inkscape:window-maximized="0"
      inkscape:snap-global="true"
@@ -175,8 +175,8 @@
        visible="true"
        enabled="true"
        snapvisiblegridlinesonly="true"
-       originx="-29.55172"
-       originy="-634.85372"
+       originx="-509.55221"
+       originy="-669.68463"
        spacingy="1"
        spacingx="1"
        units="px" />
@@ -196,7 +196,7 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Box"
-     transform="translate(156.44827,51.322807)"
+     transform="translate(-323.55222,16.491876)"
      style="display:inline">
     <rect
        y="-50.738419"
@@ -206,10 +206,10 @@
        id="rect9"
        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:2.15385;stroke-dasharray:none;stroke-opacity:1" />
     <rect
-       y="-16.325302"
-       x="323.71878"
-       height="130.9006"
-       width="80.459442"
+       y="-15.991876"
+       x="324.05222"
+       height="366.73376"
+       width="79.792587"
        id="rect4"
        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:2.15385;stroke-dasharray:none;stroke-opacity:1" />
     <rect
@@ -248,10 +248,10 @@
        id="rect14031"
        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:2.15385;stroke-dasharray:none;stroke-opacity:1" />
     <rect
-       y="-16.158249"
-       x="323.73883"
-       height="24.963507"
-       width="80.713516"
+       y="-16.15976"
+       x="323.7373"
+       height="24.96653"
+       width="80.216537"
        id="rect15257"
        style="fill:#dcdcdc;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:2.15385;stroke-dasharray:none;stroke-opacity:1" />
     <rect
@@ -306,14 +306,14 @@
        id="rect3"
        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:2.15385;stroke-dasharray:none;stroke-opacity:1" />
     <rect
-       y="24.664734"
+       y="66.664734"
        x="333.95883"
        height="30.420515"
        width="59.729382"
        id="rect6"
        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:2.15385;stroke-dasharray:none;stroke-opacity:1" />
     <rect
-       y="70.414734"
+       y="124.41473"
        x="334.20883"
        height="30.420515"
        width="59.729382"
@@ -465,10 +465,10 @@
        id="rect38"
        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:2.15385;stroke-dasharray:none;stroke-opacity:1" />
     <rect
-       y="138.50691"
-       x="199.80101"
-       height="30.236147"
-       width="84.295013"
+       y="138.50618"
+       x="199.80028"
+       height="30.237598"
+       width="84.046463"
        id="rect39"
        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:2.15385;stroke-dasharray:none;stroke-opacity:1" />
     <rect
@@ -491,20 +491,12 @@
        id="path18616" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#TriangleInM)"
-       d="m 161.44913,244.75806 77.4831,-0.0956"
+       d="m 160.72099,279.25804 78.73528,-0.0947"
        id="path46" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleOutM)"
-       d="m 239.19329,245.07721 -0.10633,-67.75545"
+       d="m 239.16961,279.35635 -0.0821,-101.40332"
        id="path1" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.967376;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#TriangleInM)"
-       d="m 298.24186,144.25823 65.97583,-0.10506"
-       id="path2" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleOutM)"
-       d="m 363.73905,143.9351 -0.15307,-34.3706"
-       id="path3" />
     <rect
        y="254.98553"
        x="-25.42625"
@@ -512,12 +504,20 @@
        width="73.926033"
        id="rect5"
        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:2.15385;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#TriangleInM);marker-end:url(#TriangleOutM)"
+       d="m 290.60254,82.999901 37.88314,-0.146902"
+       id="path2" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#TriangleInM);marker-end:url(#TriangleOutM)"
+       d="m 289.60254,139.9999 37.88314,-0.1469"
+       id="path3" />
   </g>
   <g
      inkscape:label="Text"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-29.55171,-147.03937)"
+     transform="translate(-509.5522,-181.8703)"
      style="display:inline">
     <text
        xml:space="preserve"
@@ -670,32 +670,32 @@
          id="tspan4">Handler</tspan></text>
     <text
        id="text10"
-       y="235.5387"
+       y="277.5387"
        x="548.17651"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro Bold';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:2.15385;stroke-dasharray:none"
        xml:space="preserve"><tspan
          id="tspan9"
-         y="235.5387"
+         y="277.5387"
          x="548.17651"
          sodipodi:role="line"
          style="font-size:10px;line-height:1.25">Auth</tspan><tspan
-         y="248.0387"
+         y="290.0387"
          x="548.17651"
          sodipodi:role="line"
          style="font-size:10px;line-height:1.25"
          id="tspan10">Handler</tspan></text>
     <text
        id="text12"
-       y="281.5387"
+       y="335.5387"
        x="548.42651"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro Bold';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:2.15385;stroke-dasharray:none"
        xml:space="preserve"><tspan
          id="tspan11"
-         y="281.5387"
+         y="335.5387"
          x="548.42651"
          sodipodi:role="line"
          style="font-size:10px;line-height:1.25">Query</tspan><tspan
-         y="294.0387"
+         y="348.0387"
          x="548.42651"
          sodipodi:role="line"
          style="font-size:10px;line-height:1.25"
@@ -838,5 +838,5 @@
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="Logo"
-     transform="translate(104.44827,39.35112)" />
+     transform="translate(-375.55222,4.5201882)" />
 </svg>
