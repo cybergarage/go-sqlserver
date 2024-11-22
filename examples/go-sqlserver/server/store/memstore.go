@@ -53,19 +53,19 @@ func (store *MemStore) LookupDatabaseTable(conn net.Conn, dbName string, tblName
 // Begin should handle a BEGIN statement.
 func (store *MemStore) Begin(conn net.Conn, stmt query.Begin) error {
 	log.Debugf("%v", stmt)
-	return errors.ErrNotImplemented
+	return nil
 }
 
 // Commit should handle a COMMIT statement.
 func (store *MemStore) Commit(conn net.Conn, stmt query.Commit) error {
 	log.Debugf("%v", stmt)
-	return errors.ErrNotImplemented
+	return nil
 }
 
 // Rollback should handle a ROLLBACK statement.
 func (store *MemStore) Rollback(conn net.Conn, stmt query.Rollback) error {
 	log.Debugf("%v", stmt)
-	return errors.ErrNotImplemented
+	return nil
 }
 
 // Use should handle a USE statement.
