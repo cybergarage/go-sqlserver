@@ -19,30 +19,18 @@ import (
 	"github.com/cybergarage/go-sqlserver/sql"
 )
 
-// Server represents a test server.
-// This Server struct behave as ${hoge}CommandExecutor.
+// Server is a SQL server.
 type Server struct {
 	sql.Server
-	Store
+	*store.Store
 }
 
-// NewServerWithStore returns a test server instance with the specified store.
-func NewServerWithStore(store Store) *Server {
+// NewServer creates a new Server.
+func NewServer() *Server {
 	server := &Server{
 		Server: sql.NewServer(),
-		Store:  store,
+		Store:  store.NewStore(),
 	}
-	server.SetSQLExecutor(store)
+	server.SetSQLExecutor(server.Store)
 	return server
-}
-
-// NewServer returns a test server instance.
-func NewServer() *Server {
-	// NOTE: MemStore is a sample implementation. So, change to use your implementation.
-	return NewServerWithStore(store.NewMemStore())
-}
-
-// GetStore returns a store in the server.
-func (server *Server) GetStore() Store {
-	return server.Store
 }
