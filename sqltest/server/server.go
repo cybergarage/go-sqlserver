@@ -15,7 +15,7 @@
 package server
 
 import (
-	"github.com/cybergarage/go-sqlserver/examples/go-sqlserver/server"
+	"github.com/cybergarage/go-sqlserver/cmd/go-sqlserver/server"
 )
 
 // Server represents a test server.
