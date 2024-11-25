@@ -38,9 +38,8 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/cybergarage/go-sqlserver/sql"
-
 	clog "github.com/cybergarage/go-logger/log"
+	"github.com/cybergarage/go-sqlserver/sql"
 )
 
 const (
