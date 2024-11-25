@@ -101,3 +101,11 @@ func (db *Database) Exec(query string, args ...any) (sql.Result, error) {
 	}
 	return db.db.Exec(query, args...)
 }
+
+// Query executes a query.
+func (db *Database) Query(query string, args ...any) (*sql.Rows, error) {
+	if db.tx != nil {
+		return db.tx.Query(query, args...)
+	}
+	return db.db.Query(query, args...)
+}
