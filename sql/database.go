@@ -31,6 +31,7 @@ func NewDatabaseWithName(name string) (*Database, error) {
 	var err error
 	db := &Database{
 		name: name,
+		DB:   nil,
 	}
 	db.DB, err = dbsql.Open("sqlite3", ":memory:")
 	if err != nil {
