@@ -32,13 +32,13 @@ PKG=${MODULE_ROOT}/${PKG_SRC_ROOT}
 TEST_SRC_ROOT=${PKG_NAME}test
 TEST_PKG=${MODULE_ROOT}/${TEST_SRC_ROOT}
 
-EXAMPLES_ROOT=examples
-EXAMPLES_SRC_ROOT=${EXAMPLES_ROOT}
-EXAMPLES_DEAMON_BIN=go-sqlserver
-EXAMPLES_DOCKER_TAG=cybergarage/${EXAMPLES_DEAMON_BIN}:${PKG_VER}
-EXAMPLES_PKG_ROOT=${GIT_ROOT}/${PRODUCT_NAME}/${EXAMPLES_ROOT}
+BINS_ROOT=cmd
+BINS_SRC_ROOT=${BINS_ROOT}
+BINS_DEAMON_BIN=go-sqlserver
+BINS_DOCKER_TAG=cybergarage/${BINS_DEAMON_BIN}:${PKG_VER}
+BINS_PKG_ROOT=${GIT_ROOT}/${PRODUCT_NAME}/${BINS_ROOT}
 EXAMPLE_BINARIES=\
-	${EXAMPLES_PKG_ROOT}/${EXAMPLES_DEAMON_BIN}
+	${BINS_PKG_ROOT}/${BINS_DEAMON_BIN}
 
 BINARIES=\
 	${EXAMPLE_BINARIES}
@@ -53,13 +53,13 @@ version:
 	-git commit ${PKG_SRC_ROOT}/version.go -m "Update version"
 
 format: version
-	gofmt -s -w ${PKG_SRC_ROOT} ${TEST_SRC_ROOT} ${EXAMPLES_SRC_ROOT}
+	gofmt -s -w ${PKG_SRC_ROOT} ${TEST_SRC_ROOT} ${BINS_SRC_ROOT}
 
 vet: format
 	go vet ${PKG}
 
 lint: vet
-	golangci-lint run ${PKG_SRC_ROOT}/... ${TEST_SRC_ROOT}/... ${EXAMPLES_SRC_ROOT}/...
+	golangci-lint run ${PKG_SRC_ROOT}/... ${TEST_SRC_ROOT}/... ${BINS_SRC_ROOT}/...
 
 test: lint
 	chmod og-rwx  ${TEST_SRC_ROOT}/certs/key.pem
@@ -78,13 +78,13 @@ install:
 	go install -v -gcflags=${GCFLAGS} ${BINARIES}
 
 run: install
-	${GOBIN}/${EXAMPLES_DEAMON_BIN} --debug
+	${GOBIN}/${BINS_DEAMON_BIN} --debug
 
 image: test
-	docker image build -t ${EXAMPLES_DOCKER_TAG} .
+	docker image build -t ${BINS_DOCKER_TAG} .
 
 rund: image
-	docker container run -it --rm -p 5432:5432 ${EXAMPLES_DOCKER_TAG}
+	docker container run -it --rm -p 5432:5432 ${BINS_DOCKER_TAG}
 
 clean:
 	go clean -i ${PKG}
