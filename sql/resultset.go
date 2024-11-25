@@ -15,18 +15,46 @@
 package sql
 
 import (
-	"database/sql"
+	dbsql "database/sql"
 
+	sql "github.com/cybergarage/go-sqlparser/sql/query/response/resultset"
 	_ "github.com/mattn/go-sqlite3"
 )
 
 type resultset struct {
-	*sql.Rows
+	*dbsql.Rows
+	cursor int
 }
 
 // NewResultSet creates a new result set.
-func NewResultSetWith(rows *sql.Rows) *resultset {
+func NewResultSetWith(rows *dbsql.Rows) sql.ResultSet {
 	return &resultset{
-		Rows: rows,
+		Rows:   rows,
+		cursor: 0,
 	}
+}
+
+// Schema returns the schema.
+func (rs *resultset) Schema() sql.Schema {
+	return nil
+}
+
+// Next returns the next row.
+func (rs *resultset) Next() bool {
+	return rs.Rows.Next()
+}
+
+// Row returns the current row.
+func (rs *resultset) Row() sql.Row {
+	return nil
+}
+
+// RowsAffected returns the number of rows affected.
+func (rs *resultset) RowsAffected() uint64 {
+	return 0
+}
+
+// Close closes the resultset.
+func (rs *resultset) Close() error {
+	return rs.Rows.Close()
 }
