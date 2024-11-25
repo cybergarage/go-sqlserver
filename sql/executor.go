@@ -16,6 +16,7 @@ package sql
 
 import (
 	"github.com/cybergarage/go-logger/log"
+	"github.com/cybergarage/go-mysql/mysql/errors"
 	"github.com/cybergarage/go-sqlparser/sql/net"
 	"github.com/cybergarage/go-sqlparser/sql/query"
 )
@@ -74,7 +75,7 @@ func (server *server) CreateDatabase(conn net.Conn, stmt query.CreateDatabase) e
 
 	return store.AddDatabase(NewDatabaseWithName(dbName))
 }
-
+*/
 // AlterDatabase should handle a ALTER database statement.
 func (server *server) AlterDatabase(conn net.Conn, stmt query.AlterDatabase) error {
 	log.Debugf("%v", stmt)
@@ -84,18 +85,18 @@ func (server *server) AlterDatabase(conn net.Conn, stmt query.AlterDatabase) err
 // DropDatabase should handle a DROP database statement.
 func (server *server) DropDatabase(conn net.Conn, stmt query.DropDatabase) error {
 	log.Debugf("%v", stmt)
-
 	dbName := stmt.DatabaseName()
-	db, ok := store.LookupDatabase(dbName)
-	if !ok {
+	db, err := server.LookupDatabase(dbName)
+	if err != nil {
 		if stmt.IfExists() {
 			return nil
 		}
-		return errors.NewErrDatabaseNotExist(dbName)
+		return err
 	}
-	return store.Databases.DropDatabase(db)
+	return server.Databases.DropDatabase(db)
 }
 
+/*
 // CreateTable should handle a CREATE table statement.
 func (server *server) CreateTable(conn net.Conn, stmt query.CreateTable) error {
 	log.Debugf("%v", stmt)
