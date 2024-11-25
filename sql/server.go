@@ -15,6 +15,8 @@
 package sql
 
 import (
+	"github.com/cybergarage/go-mysql/mysql"
+	"github.com/cybergarage/go-postgresql/postgresql"
 	"github.com/cybergarage/go-sqlparser/sql"
 	"github.com/cybergarage/go-tracing/tracer"
 )
@@ -28,6 +30,10 @@ type Server interface {
 	SetTracer(tracer.Tracer)
 	// SetSQLExecutor sets a SQL executor.
 	SetSQLExecutor(SQLExecutor)
+	// MySQLServer returns a MySQL server.
+	MySQLServer() mysql.Server
+	// PostgreSQLServer returns a PostgreSQL server.
+	PostgreSQLServer() postgresql.Server
 	// Start starts the server.
 	Start() error
 	// Stop stops the server.
