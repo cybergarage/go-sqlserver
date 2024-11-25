@@ -85,8 +85,7 @@ func (server *server) AlterDatabase(conn net.Conn, stmt query.AlterDatabase) err
 // DropDatabase should handle a DROP database statement.
 func (server *server) DropDatabase(conn net.Conn, stmt query.DropDatabase) error {
 	log.Debugf("%v", stmt)
-	dbName := stmt.DatabaseName()
-	db, err := server.LookupDatabase(dbName)
+	db, err := server.LookupDatabase(stmt.DatabaseName())
 	if err != nil {
 		if stmt.IfExists() {
 			return nil
@@ -122,33 +121,19 @@ func (server *server) AlterTable(conn net.Conn, stmt query.AlterTable) error {
 	// log.Debugf("%v", stmt)
 	return errors.ErrNotImplemented
 }
-
+*/
 // DropTable should handle a DROP table statement.
 func (server *server) DropTable(conn net.Conn, stmt query.DropTable) error {
 	log.Debugf("%v", stmt)
-
-	dbName := conn.Database()
-	db, ok := store.LookupDatabase(dbName)
-	if !ok {
-		return errors.NewErrDatabaseNotExist(dbName)
+	db, err := server.LookupDatabase(conn.Database())
+	if err != nil {
+		return err
 	}
-	for _, table := range stmt.Tables() {
-		tableName := table.TableName()
-		table, ok := db.LookupTable(tableName)
-		if !ok {
-			if stmt.IfExists() {
-				continue
-			}
-			return errors.NewErrTableNotExist(tableName)
-		}
-
-		if !db.DropTable(table) {
-			return fmt.Errorf("%s could not deleted", table.TableName())
-		}
-	}
-	return nil
+	_, err = db.Exec(stmt.String())
+	return err
 }
 
+/*
 // Insert should handle a INSERT statement.
 func (server *server) Insert(conn net.Conn, stmt query.Insert) error {
 	log.Debugf("%v", stmt)

@@ -42,6 +42,16 @@ func NewDatabaseWithName(name string) (*Database, error) {
 	return db, nil
 }
 
+// DB returns the database.
+func (db *Database) DB() *sql.DB {
+	return db.db
+}
+
+// Name returns the database name.
+func (db *Database) Name() string {
+	return db.name
+}
+
 // Begin starts a transaction.
 func (db *Database) Begin() error {
 	if db.tx != nil {
@@ -84,12 +94,10 @@ func (db *Database) Rollback() error {
 	return nil
 }
 
-// DB returns the database.
-func (db *Database) DB() *sql.DB {
-	return db.db
-}
-
-// Name returns the database name.
-func (db *Database) Name() string {
-	return db.name
+// Exec executes a query.
+func (db *Database) Exec(query string, args ...any) (sql.Result, error) {
+	if db.tx != nil {
+		return db.tx.Exec(query, args...)
+	}
+	return db.db.Exec(query, args...)
 }
