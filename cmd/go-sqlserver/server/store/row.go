@@ -159,10 +159,8 @@ func (row Row) Update(colums []query.Column) {
 				continue
 			}
 			row[colName] = v
-		} else {
-			if col.HasValue() {
-				row[colName] = col.Value()
-			}
+		} else if col.HasValue() {
+			row[colName] = col.Value()
 		}
 	}
 }
