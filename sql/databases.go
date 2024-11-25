@@ -52,9 +52,10 @@ func (dbs *Databases) DropDatabase(db *Database) error {
 
 // LookupDatabase returns a database with the specified name.
 func (dbs *Databases) LookupDatabase(name string) (*Database, bool) {
-	db, ok := dbs.dbmap.Load(name)
+	v, ok := dbs.dbmap.Load(name)
 	if !ok {
 		return nil, false
 	}
-	return db.(*Database), true
+	db, ok := v.(*Database)
+	return db, ok
 }
