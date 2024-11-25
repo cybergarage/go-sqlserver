@@ -24,16 +24,27 @@ import (
 
 // Server represents a SQL server.
 type server struct {
+	*Databases
 	myServer mysql.Server
 	pgServer postgresql.Server
 }
 
 // NewServer creates a new SQL server.
 func NewServer() Server {
-	return &server{
-		myServer: mysql.NewServer(),
-		pgServer: postgresql.NewServer(),
+	server := &server{
+		Databases: NewDatabases(),
+		myServer:  mysql.NewServer(),
+		pgServer:  postgresql.NewServer(),
 	}
+
+	// Set common SQL executor for MySQL and PostgreSQL
+	// server.SetSQLExecutor(server.Store)
+
+	// PostgreSQL server settings
+	server.PostgreSQLServer().SetBulkQueryExecutor(server)
+	server.PostgreSQLServer().SetErrorHandler(server)
+
+	return server
 }
 
 // SetTracer sets a tracing tracer.
