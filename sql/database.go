@@ -15,7 +15,7 @@
 package sql
 
 import (
-	dbsql "database/sql"
+	"database/sql"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -23,7 +23,8 @@ import (
 // Database represents a destination or source database of query.
 type Database struct {
 	name string
-	*dbsql.DB
+	db   *sql.DB
+	tx   *sql.Tx
 }
 
 // NewDatabaseWithName returns a new database with the specified string.
@@ -31,13 +32,61 @@ func NewDatabaseWithName(name string) (*Database, error) {
 	var err error
 	db := &Database{
 		name: name,
-		DB:   nil,
+		db:   nil,
+		tx:   nil,
 	}
-	db.DB, err = dbsql.Open("sqlite3", ":memory:")
+	db.db, err = sql.Open("sqlite3", ":memory:")
 	if err != nil {
 		return nil, err
 	}
 	return db, nil
+}
+
+// Begin starts a transaction.
+func (db *Database) Begin() error {
+	if db.tx != nil {
+		err := db.tx.Rollback()
+		if err != nil {
+			return err
+		}
+	}
+	var err error
+	db.tx, err = db.db.Begin()
+	if err != nil {
+		return err
+	}
+	return err
+}
+
+// Commit commits a transaction.
+func (db *Database) Commit() error {
+	if db.tx == nil {
+		return nil
+	}
+	err := db.tx.Commit()
+	if err != nil {
+		return err
+	}
+	db.tx = nil
+	return nil
+}
+
+// Rollback rolls back a transaction.
+func (db *Database) Rollback() error {
+	if db.tx == nil {
+		return nil
+	}
+	err := db.tx.Rollback()
+	if err != nil {
+		return err
+	}
+	db.tx = nil
+	return nil
+}
+
+// DB returns the database.
+func (db *Database) DB() *sql.DB {
+	return db.db
 }
 
 // Name returns the database name.
