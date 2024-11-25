@@ -51,11 +51,14 @@ func (dbs *Databases) DropDatabase(db *Database) error {
 }
 
 // LookupDatabase returns a database with the specified name.
-func (dbs *Databases) LookupDatabase(name string) (*Database, bool) {
+func (dbs *Databases) LookupDatabase(name string) (*Database, error) {
 	v, ok := dbs.dbmap.Load(name)
 	if !ok {
-		return nil, false
+		return nil, fmt.Errorf("database %s %w", name, errors.ErrNotExist)
 	}
 	db, ok := v.(*Database)
-	return db, ok
+	if !ok {
+		return nil, fmt.Errorf("database %s %w", name, errors.ErrNotExist)
+	}
+	return db, nil
 }
