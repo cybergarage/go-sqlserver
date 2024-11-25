@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package server
+package sql
 
 // PostgreSQL: Documentation: 16: 55.2. Message Flow
 // https://www.postgresql.org/docs/16/protocol-flow.html
@@ -29,27 +29,35 @@ import (
 )
 
 // Copy handles a COPY query.
-func (server *Server) Copy(conn postgresql.Conn, q query.Copy) (protocol.Responses, error) {
-	_, tbl, err := server.LookupDatabaseTable(conn, conn.Database(), q.TableName())
-	if err != nil {
-		return nil, err
-	}
+func (server *server) Copy(conn postgresql.Conn, q query.Copy) (protocol.Responses, error) {
+	/*
+		_, tbl, err := server.LookupDatabaseTable(conn, conn.Database(), q.TableName())
+		if err != nil {
+			return nil, err
+		}
 
-	return postgresql.NewCopyInResponsesFrom(q, tbl.Schema)
+		return postgresql.NewCopyInResponsesFrom(q, tbl.Schema)
+	*/
+	return nil, nil
 }
 
 // Copy handles a COPY DATA protocol.
-func (server *Server) CopyData(conn postgresql.Conn, q query.Copy, stream *postgresql.CopyStream) (protocol.Responses, error) {
-	_, tbl, err := server.LookupDatabaseTable(conn, conn.Database(), q.TableName())
-	if err != nil {
-		log.Error(err)
-		return nil, err
-	}
-	return postgresql.NewCopyCompleteResponsesFrom(q, stream, conn, tbl.Schema, server.PostgreSQLServer().QueryExecutor())
+func (server *server) CopyData(conn postgresql.Conn, q query.Copy, stream *postgresql.CopyStream) (protocol.Responses, error) {
+	/*
+	   _, tbl, err := server.LookupDatabaseTable(conn, conn.Database(), q.TableName())
+
+	   	if err != nil {
+	   		log.Error(err)
+	   		return nil, err
+	   	}
+
+	   return postgresql.NewCopyCompleteResponsesFrom(q, stream, conn, tbl.Schema, server.PostgreSQLServer().QueryExecutor())
+	*/
+	return nil, nil
 }
 
 // ParserError handles a parser error.
-func (server *Server) ParserError(conn postgresql.Conn, q string, err error) (protocol.Responses, error) {
+func (server *server) ParserError(conn postgresql.Conn, q string, err error) (protocol.Responses, error) {
 	switch {
 	case postgresql.IsPgbenchGetPartitionQuery(q):
 		return postgresql.NewGetPartitionResponseForPgbench()
