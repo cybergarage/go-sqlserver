@@ -50,8 +50,8 @@ func (dbs Databases) LookupDatabase(name string) (*Database, bool) {
 	return ks, ok
 }
 
-// server.LookupDatabaseTable returns a specified table in a specified database.
-func (dbs *Databases) LookupDatabaseTable(dbName string, tableName string) (*Table, bool) {
+// LookupTableWithDatabase returns a specified table in a specified database.
+func (dbs *Databases) LookupTableWithDatabase(dbName string, tableName string) (*Table, bool) {
 	db, ok := dbs.LookupDatabase(dbName)
 	if !ok {
 		return nil, false

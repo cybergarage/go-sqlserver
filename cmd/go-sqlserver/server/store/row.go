@@ -19,7 +19,6 @@ import (
 	"reflect"
 
 	"github.com/cybergarage/go-safecast/safecast"
-	"github.com/cybergarage/go-sqlparser/sql/errors"
 	"github.com/cybergarage/go-sqlparser/sql/query"
 )
 
@@ -187,7 +186,7 @@ func (row Row) IsEqual(other Row) bool {
 func (row Row) ValueByName(name string) (any, error) {
 	v, ok := row[name]
 	if !ok {
-		return nil, fmt.Errorf("row (%s) %w", name, errors.ErrNotExist)
+		return nil, fmt.Errorf("row does not have column %s", name)
 	}
 	return v, nil
 }
