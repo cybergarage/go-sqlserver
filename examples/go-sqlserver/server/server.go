@@ -31,6 +31,13 @@ func NewServer() *Server {
 		Server: sql.NewServer(),
 		Store:  store.NewStore(),
 	}
+
+	// Set common SQL executor for MySQL and PostgreSQL
 	server.SetSQLExecutor(server.Store)
+
+	// PostgreSQL server settings
+	server.PostgreSQLServer().SetBulkQueryExecutor(server)
+	server.PostgreSQLServer().SetErrorHandler(server)
+
 	return server
 }

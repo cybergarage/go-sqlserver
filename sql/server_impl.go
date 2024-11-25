@@ -48,6 +48,16 @@ func (server *server) SetSQLExecutor(ex SQLExecutor) {
 	server.pgServer.SetSQLExecutor(ex)
 }
 
+// MySQLServer returns a MySQL server.
+func (server *server) MySQLServer() mysql.Server {
+	return server.myServer
+}
+
+// PostgreSQLServer returns a PostgreSQL server.
+func (server *server) PostgreSQLServer() postgresql.Server {
+	return server.pgServer
+}
+
 // Start starts the SQL server.
 func (server *server) Start() error {
 	type starter interface {
