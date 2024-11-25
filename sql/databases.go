@@ -23,36 +23,36 @@ import (
 
 // Databases represents a collection of databases.
 type Databases struct {
-	sync.Map
+	dbmap sync.Map
 }
 
 // NewDatabases returns a databases instance.
 func NewDatabases() *Databases {
 	return &Databases{
-		sync.Map{},
+		dbmap: sync.Map{},
 	}
 }
 
 // AddDatabase adds a specified database.
-func (dbs Databases) AddDatabase(db *Database) error {
+func (dbs *Databases) AddDatabase(db *Database) error {
 	dbName := db.Name()
-	if _, ok := dbs.Load(dbName); ok {
+	if _, ok := dbs.dbmap.Load(dbName); ok {
 		return fmt.Errorf("database %s already %w", dbName, errors.ErrExist)
 	}
-	dbs.Store(dbName, db)
+	dbs.dbmap.Store(dbName, db)
 	return nil
 }
 
 // DropDatabase remove the specified database.
-func (dbs Databases) DropDatabase(db *Database) error {
+func (dbs *Databases) DropDatabase(db *Database) error {
 	name := db.Name()
-	dbs.Delete(name)
+	dbs.dbmap.Delete(name)
 	return nil
 }
 
 // LookupDatabase returns a database with the specified name.
-func (dbs Databases) LookupDatabase(name string) (*Database, bool) {
-	db, ok := dbs.Load(name)
+func (dbs *Databases) LookupDatabase(name string) (*Database, bool) {
+	db, ok := dbs.dbmap.Load(name)
 	if !ok {
 		return nil, false
 	}
