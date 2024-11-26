@@ -16,37 +16,96 @@ package sql
 
 import (
 	dbsql "database/sql"
+	"errors"
 
 	sql "github.com/cybergarage/go-sqlparser/sql/query/response/resultset"
 	_ "github.com/mattn/go-sqlite3"
 )
 
 type resultset struct {
-	*dbsql.Rows
-	cursor int
+	rows   *dbsql.Rows
+	schema sql.Schema
+}
+
+// NewResultSetDataTypeFrom creates a new result set data type from a column type.
+func NewResultSetDataTypeFrom(ct *dbsql.ColumnType) (sql.DataType, error) {
+	return nil, nil
+}
+
+// NewResultSetColumn creates a new result set column from a column name and type.
+func NewResultSetColumnFrom(name string, ct *dbsql.ColumnType) (sql.Column, error) {
+	dt, err := NewResultSetDataTypeFrom(ct)
+	if err != nil {
+		return nil, err
+	}
+	return sql.NewColumn(
+		sql.WithColumnType(dt),
+		sql.WithColumnName(name),
+	), nil
 }
 
 // NewResultSet creates a new result set.
-func NewResultSetWith(rows *dbsql.Rows) sql.ResultSet {
-	return &resultset{
-		Rows:   rows,
-		cursor: 0,
+func NewResultSetWith(rows *dbsql.Rows) (sql.ResultSet, error) {
+	rs := &resultset{
+		rows: rows,
 	}
+	err := rs.updateSchema()
+	if err != nil {
+		return nil, err
+	}
+	return rs, nil
+}
+
+func (rs *resultset) updateSchema() error {
+	rowColumnNames, err := rs.rows.Columns()
+	if err != nil {
+		return err
+	}
+	rowColumnTypes, err := rs.rows.ColumnTypes()
+	if err != nil {
+		return err
+	}
+	if len(rowColumnNames) != len(rowColumnTypes) {
+		return errors.New("column name and type length mismatch")
+	}
+	rsColums := []sql.Column{}
+	for i, name := range rowColumnNames {
+		rsColumn, err := NewResultSetColumnFrom(name, rowColumnTypes[i])
+		if err != nil {
+			return err
+		}
+		rsColums = append(rsColums, rsColumn)
+	}
+	rs.schema = sql.NewSchema(
+		sql.WithSchemaColumns(rsColums),
+	)
+	return nil
 }
 
 // Schema returns the schema.
 func (rs *resultset) Schema() sql.Schema {
-	return nil
+	return rs.schema
 }
 
 // Next returns the next row.
 func (rs *resultset) Next() bool {
-	return rs.Rows.Next()
+	if rs.rows.Err() != nil {
+		return false
+	}
+	return rs.rows.Next()
 }
 
 // Row returns the current row.
-func (rs *resultset) Row() sql.Row {
-	return nil
+func (rs *resultset) Row() (sql.Row, error) {
+	dest := make([]any, len(rs.schema.Columns()))
+	for i := range dest {
+		dest[i] = new(any)
+	}
+	err := rs.rows.Scan(dest...)
+	if err != nil {
+		return nil, err
+	}
+	return nil, nil
 }
 
 // RowsAffected returns the number of rows affected.
@@ -56,5 +115,5 @@ func (rs *resultset) RowsAffected() uint64 {
 
 // Close closes the resultset.
 func (rs *resultset) Close() error {
-	return rs.Rows.Close()
+	return rs.rows.Close()
 }
