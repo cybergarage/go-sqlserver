@@ -23,9 +23,13 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+// ResultSetOption is a result set option.
+type ResultSetOption func(*resultset) error
+
 type resultset struct {
-	rows   *dbsql.Rows
-	schema sql.Schema
+	rows         *dbsql.Rows
+	schema       sql.Schema
+	rowsAffected uint64
 }
 
 // NewResultSetDataTypeFrom creates a new result set data type from a column type.
@@ -58,19 +62,46 @@ func NewResultSetColumnFrom(name string, ct *dbsql.ColumnType) (sql.Column, erro
 	), nil
 }
 
-// NewResultSet creates a new result set.
-func NewResultSetWith(rows *dbsql.Rows) (sql.ResultSet, error) {
-	rs := &resultset{
-		rows: rows,
+// WithResultSetRows sets the result set rows.
+func WithResultSetRows(rows *dbsql.Rows) ResultSetOption {
+	return func(rs *resultset) error {
+		rs.rows = rows
+		return rs.updateSchema()
 	}
-	err := rs.updateSchema()
-	if err != nil {
-		return nil, err
+}
+
+// WithResultSetResult sets the result set result.
+func WithResultSetResult(result dbsql.Result) ResultSetOption {
+	return func(rs *resultset) error {
+		rowsAffected, err := result.RowsAffected()
+		if err != nil {
+			return err
+		}
+		rs.rowsAffected = uint64(rowsAffected)
+		return nil
+	}
+}
+
+// NewResultSet creates a new result set.
+func NewResultSet(opts ...ResultSetOption) (sql.ResultSet, error) {
+	rs := &resultset{
+		rows:         nil,
+		schema:       nil,
+		rowsAffected: 0,
+	}
+	for _, opt := range opts {
+		err := opt(rs)
+		if err != nil {
+			return nil, err
+		}
 	}
 	return rs, nil
 }
 
 func (rs *resultset) updateSchema() error {
+	if rs.rows == nil {
+		return errors.New("rows is nil")
+	}
 	rowColumnNames, err := rs.rows.Columns()
 	if err != nil {
 		return err
@@ -143,7 +174,7 @@ func (rs *resultset) Row() (sql.Row, error) {
 
 // RowsAffected returns the number of rows affected.
 func (rs *resultset) RowsAffected() uint64 {
-	return 0
+	return rs.rowsAffected
 }
 
 // Close closes the resultset.
