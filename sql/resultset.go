@@ -66,7 +66,32 @@ func NewResultSetColumnFrom(name string, ct *dbsql.ColumnType) (sql.Column, erro
 func WithResultSetRows(rows *dbsql.Rows) ResultSetOption {
 	return func(rs *resultset) error {
 		rs.rows = rows
-		return rs.updateSchema()
+		if rs.rows == nil {
+			return errors.New("rows is nil")
+		}
+		rowColumnNames, err := rs.rows.Columns()
+		if err != nil {
+			return err
+		}
+		rowColumnTypes, err := rs.rows.ColumnTypes()
+		if err != nil {
+			return err
+		}
+		if len(rowColumnNames) != len(rowColumnTypes) {
+			return errors.New("column name and type length mismatch")
+		}
+		rsColums := []sql.Column{}
+		for i, name := range rowColumnNames {
+			rsColumn, err := NewResultSetColumnFrom(name, rowColumnTypes[i])
+			if err != nil {
+				return err
+			}
+			rsColums = append(rsColums, rsColumn)
+		}
+		rs.schema = sql.NewSchema(
+			sql.WithSchemaColumns(rsColums),
+		)
+		return nil
 	}
 }
 
@@ -96,35 +121,6 @@ func NewResultSet(opts ...ResultSetOption) (sql.ResultSet, error) {
 		}
 	}
 	return rs, nil
-}
-
-func (rs *resultset) updateSchema() error {
-	if rs.rows == nil {
-		return errors.New("rows is nil")
-	}
-	rowColumnNames, err := rs.rows.Columns()
-	if err != nil {
-		return err
-	}
-	rowColumnTypes, err := rs.rows.ColumnTypes()
-	if err != nil {
-		return err
-	}
-	if len(rowColumnNames) != len(rowColumnTypes) {
-		return errors.New("column name and type length mismatch")
-	}
-	rsColums := []sql.Column{}
-	for i, name := range rowColumnNames {
-		rsColumn, err := NewResultSetColumnFrom(name, rowColumnTypes[i])
-		if err != nil {
-			return err
-		}
-		rsColums = append(rsColums, rsColumn)
-	}
-	rs.schema = sql.NewSchema(
-		sql.WithSchemaColumns(rsColums),
-	)
-	return nil
 }
 
 // Schema returns the schema.
