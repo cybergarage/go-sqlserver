@@ -18,6 +18,7 @@ import (
 	dbsql "database/sql"
 	"errors"
 
+	query "github.com/cybergarage/go-sqlparser/sql/query"
 	sql "github.com/cybergarage/go-sqlparser/sql/query/response/resultset"
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -29,7 +30,20 @@ type resultset struct {
 
 // NewResultSetDataTypeFrom creates a new result set data type from a column type.
 func NewResultSetDataTypeFrom(ct *dbsql.ColumnType) (sql.DataType, error) {
-	return nil, nil
+	s := ct.DatabaseTypeName()
+	switch s {
+	case "INTEGER":
+		return query.IntegerData, nil
+	case "REAL":
+		return query.RealData, nil
+	case "TEXT":
+		return query.TextData, nil
+	case "BLOB":
+		return query.BlobData, nil
+	case "NUMERIC":
+		return query.RealData, nil
+	}
+	return 0, errors.New("unsupported data type")
 }
 
 // NewResultSetColumn creates a new result set column from a column name and type.
