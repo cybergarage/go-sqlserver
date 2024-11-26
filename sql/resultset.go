@@ -130,7 +130,15 @@ func (rs *resultset) Row() (sql.Row, error) {
 	if err != nil {
 		return nil, err
 	}
-	return nil, nil
+	obj := map[string]any{}
+	for n, column := range rs.schema.Columns() {
+		obj[column.Name()] = dest[n]
+	}
+	return sql.NewRow(
+			sql.WithRowSchema(rs.schema),
+			sql.WithRowObject(obj),
+		),
+		nil
 }
 
 // RowsAffected returns the number of rows affected.
