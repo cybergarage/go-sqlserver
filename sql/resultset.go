@@ -112,8 +112,19 @@ func (rs *resultset) Next() bool {
 // Row returns the current row.
 func (rs *resultset) Row() (sql.Row, error) {
 	dest := make([]any, len(rs.schema.Columns()))
-	for i := range dest {
-		dest[i] = new(any)
+	for n, column := range rs.schema.Columns() {
+		switch column.DataType() {
+		case query.IntegerData:
+			dest[n] = new(int64)
+		case query.RealData:
+			dest[n] = new(float64)
+		case query.TextData:
+			dest[n] = new(string)
+		case query.BlobData:
+			dest[n] = new([]byte)
+		default:
+			dest[n] = new(any)
+		}
 	}
 	err := rs.rows.Scan(dest...)
 	if err != nil {
