@@ -137,13 +137,13 @@ func (server *server) Update(conn net.Conn, stmt query.Update) (sql.ResultSet, e
 	log.Debugf("%v", stmt)
 	db, err := server.LookupDatabase(conn.Database())
 	if err != nil {
-		return err
+		return nil, err
 	}
 	rows, err := db.Query(stmt.String())
 	if err != nil {
 		return nil, err
 	}
-	return NewResultSetWith(rows), nil
+	return NewResultSetWith(rows)
 }
 
 // Delete should handle a DELETE statement.
@@ -151,13 +151,13 @@ func (server *server) Delete(conn net.Conn, stmt query.Delete) (sql.ResultSet, e
 	log.Debugf("%v", stmt)
 	db, err := server.LookupDatabase(conn.Database())
 	if err != nil {
-		return err
+		return nil, err
 	}
 	rows, err := db.Query(stmt.String())
 	if err != nil {
 		return nil, err
 	}
-	return NewResultSetWith(rows), nil
+	return NewResultSetWith(rows)
 }
 
 // Select should handle a SELECT statement.
@@ -165,13 +165,13 @@ func (server *server) Select(conn net.Conn, stmt query.Select) (sql.ResultSet, e
 	log.Debugf("%v", stmt)
 	db, err := server.LookupDatabase(conn.Database())
 	if err != nil {
-		return err
+		return nil, err
 	}
 	rows, err := db.Query(stmt.String())
 	if err != nil {
 		return nil, err
 	}
-	return NewResultSetWith(rows), nil
+	return NewResultSetWith(rows)
 }
 
 // SystemSelect should handle a system SELECT statement.
