@@ -19,6 +19,7 @@ import (
 	"github.com/cybergarage/go-mysql/mysql/errors"
 	"github.com/cybergarage/go-sqlparser/sql/net"
 	"github.com/cybergarage/go-sqlparser/sql/query"
+	sql "github.com/cybergarage/go-sqlparser/sql/query/response/resultset"
 )
 
 // Begin should handle a BEGIN statement.
@@ -58,24 +59,17 @@ func (server *server) Use(conn net.Conn, stmt query.Use) error {
 	return nil
 }
 
-/*
-
 // CreateDatabase should handle a CREATE database statement.
 func (server *server) CreateDatabase(conn net.Conn, stmt query.CreateDatabase) error {
 	log.Debugf("%v", stmt)
-
-	dbName := stmt.DatabaseName()
-	_, ok := store.LookupDatabase(dbName)
-	if ok {
-		if stmt.IfNotExists() {
-			return nil
-		}
-		return errors.NewErrDatabaseExist(dbName)
+	db, err := server.LookupDatabase(conn.Database())
+	if err != nil {
+		return err
 	}
-
-	return store.AddDatabase(NewDatabaseWithName(dbName))
+	_, err = db.Exec(stmt.String())
+	return err
 }
-*/
+
 // AlterDatabase should handle a ALTER database statement.
 func (server *server) AlterDatabase(conn net.Conn, stmt query.AlterDatabase) error {
 	log.Debugf("%v", stmt)
@@ -95,33 +89,28 @@ func (server *server) DropDatabase(conn net.Conn, stmt query.DropDatabase) error
 	return server.Databases.DropDatabase(db)
 }
 
-/*
 // CreateTable should handle a CREATE table statement.
 func (server *server) CreateTable(conn net.Conn, stmt query.CreateTable) error {
 	log.Debugf("%v", stmt)
-
-	dbName := conn.Database()
-	db, ok := store.LookupDatabase(dbName)
-	if !ok {
-		return errors.NewErrDatabaseNotExist(dbName)
+	db, err := server.LookupDatabase(conn.Database())
+	if err != nil {
+		return err
 	}
-	tableName := stmt.TableName()
-	_, ok = db.LookupTable(tableName)
-	if !ok {
-		table := NewTableWith(tableName, stmt.Schema())
-		db.AddTable(table)
-	} else if !stmt.IfNotExists() {
-		return errors.NewErrTableExist(tableName)
-	}
-	return nil
+	_, err = db.Exec(stmt.String())
+	return err
 }
 
 // AlterTable should handle a ALTER table statement.
 func (server *server) AlterTable(conn net.Conn, stmt query.AlterTable) error {
-	// log.Debugf("%v", stmt)
-	return errors.ErrNotImplemented
+	log.Debugf("%v", stmt)
+	db, err := server.LookupDatabase(conn.Database())
+	if err != nil {
+		return err
+	}
+	_, err = db.Exec(stmt.String())
+	return err
 }
-*/
+
 // DropTable should handle a DROP table statement.
 func (server *server) DropTable(conn net.Conn, stmt query.DropTable) error {
 	log.Debugf("%v", stmt)
@@ -133,157 +122,56 @@ func (server *server) DropTable(conn net.Conn, stmt query.DropTable) error {
 	return err
 }
 
-/*
-// Insert should handle a INSERT statement.
 func (server *server) Insert(conn net.Conn, stmt query.Insert) error {
 	log.Debugf("%v", stmt)
-
-	dbName := conn.Database()
-	tableName := stmt.TableName()
-	table, ok := store.LookupTableWithDatabase(dbName, tableName)
-	if !ok {
-		return errors.NewErrTableNotExist(tableName)
+	db, err := server.LookupDatabase(conn.Database())
+	if err != nil {
+		return err
 	}
-
-	row := NewRowWith(table, stmt.Columns())
-	table.Lock()
-	defer table.Unlock()
-	table.Rows = append(table.Rows, row)
-
-	return nil
+	_, err = db.Exec(stmt.String())
+	return err
 }
 
 // Update should handle a UPDATE statement.
 func (server *server) Update(conn net.Conn, stmt query.Update) (sql.ResultSet, error) {
 	log.Debugf("%v", stmt)
-
-	_, tbl, err := store.LookupDatabaseTable(conn, conn.Database(), stmt.TableName())
+	db, err := server.LookupDatabase(conn.Database())
+	if err != nil {
+		return err
+	}
+	rows, err := db.Query(stmt.String())
 	if err != nil {
 		return nil, err
 	}
-
-	n, err := tbl.Update(stmt.Columns(), stmt.Where())
-	if err != nil {
-		return nil, err
-	}
-
-	return resultset.NewResultSet(
-		resultset.WithRowsAffected(uint64(n)),
-	), nil
+	return NewResultSetWith(rows), nil
 }
 
 // Delete should handle a DELETE statement.
 func (server *server) Delete(conn net.Conn, stmt query.Delete) (sql.ResultSet, error) {
 	log.Debugf("%v", stmt)
-
-	_, tbl, err := store.LookupDatabaseTable(conn, conn.Database(), stmt.TableName())
+	db, err := server.LookupDatabase(conn.Database())
+	if err != nil {
+		return err
+	}
+	rows, err := db.Query(stmt.String())
 	if err != nil {
 		return nil, err
 	}
-
-	n, err := tbl.Delete(stmt.Where())
-	if err != nil {
-		return nil, err
-	}
-
-	return resultset.NewResultSet(
-		resultset.WithRowsAffected(uint64(n)),
-	), nil
+	return NewResultSetWith(rows), nil
 }
 
 // Select should handle a SELECT statement.
 func (server *server) Select(conn net.Conn, stmt query.Select) (sql.ResultSet, error) {
 	log.Debugf("%v", stmt)
-
-	from := stmt.From()
-	if len(from) != 1 {
-		return nil, errors.NewErrMultipleTableNotSupported(from.String())
+	db, err := server.LookupDatabase(conn.Database())
+	if err != nil {
+		return err
 	}
-
-	tblName := from[0].TableName()
-
-	_, tbl, err := store.LookupDatabaseTable(conn, conn.Database(), tblName)
+	rows, err := db.Query(stmt.String())
 	if err != nil {
 		return nil, err
 	}
-
-	rows, err := tbl.Select(stmt.Where())
-	if err != nil {
-		return nil, err
-	}
-
-	// Selector column names
-
-	selectors := stmt.Selectors()
-	if selectors.IsAsterisk() {
-		selectors = tbl.Selectors()
-	}
-
-	selectorNames := []string{}
-	for _, selector := range selectors {
-		if fn, ok := selector.(query.Function); ok {
-			for _, arg := range fn.Arguments() {
-				if arg.IsAsterisk() {
-					selectorNames = append(selectorNames, tbl.Selectors().SelectorNames()...)
-				} else {
-					selectorNames = append(selectorNames, arg.Name())
-				}
-			}
-		} else {
-			selectorNames = append(selectorNames, selector.Name())
-		}
-	}
-
-	// Row description response
-
-	schema := tbl.Schema
-	rsSchemaColums := []sql.ResultSetColumn{}
-	for _, selectorName := range selectorNames {
-		shemaColumn, err := schema.LookupColumn(selectorName)
-		if err != nil {
-			return nil, err
-		}
-		rsCchemaColumn, err := resultset.NewColumnFrom(shemaColumn)
-		if err != nil {
-			return nil, err
-		}
-		rsSchemaColums = append(rsSchemaColums, rsCchemaColumn)
-	}
-
-	rsSchema := resultset.NewSchema(
-		resultset.WithSchemaDatabaseName(conn.Database()),
-		resultset.WithSchemaTableName(tblName),
-		resultset.WithSchemaResultSetColumns(rsSchemaColums),
-	)
-
-	// Data row response
-
-	rsRows := []sql.ResultSetRow{}
-	for _, row := range rows {
-		rowValues := []any{}
-		for _, selectorName := range selectorNames {
-			value, err := row.ValueByName(selectorName)
-			if err != nil {
-				return nil, err
-			}
-			rowValues = append(rowValues, value)
-		}
-		rsRow := resultset.NewRow(
-			resultset.WithRowSchema(rsSchema),
-			resultset.WithRowValues(rowValues),
-		)
-		rsRows = append(rsRows, rsRow)
-	}
-
-	// Return a result set
-
-	rs := resultset.NewResultSet(
-		resultset.WithSchema(rsSchema),
-		resultset.WithRowsAffected(uint64(len(rsRows))),
-		resultset.WithRows(rsRows),
-	)
-
-	return rs, nil
+	return NewResultSetWith(rows), nil
 }
 
 // SystemSelect should handle a system SELECT statement.
@@ -291,4 +179,3 @@ func (server *server) SystemSelect(conn net.Conn, stmt query.Select) (sql.Result
 	log.Debugf("%v", stmt)
 	return nil, errors.NewErrNotImplemented("SystemSelect")
 }
-*/
