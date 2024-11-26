@@ -139,12 +139,12 @@ func (server *server) Update(conn net.Conn, stmt query.Update) (sql.ResultSet, e
 	if err != nil {
 		return nil, err
 	}
-	rows, err := db.Query(stmt.String())
+	result, err := db.Exec(stmt.String())
 	if err != nil {
 		return nil, err
 	}
 	return NewResultSet(
-		WithResultSetRows(rows),
+		WithResultSetResult(result),
 	)
 }
 
@@ -155,12 +155,12 @@ func (server *server) Delete(conn net.Conn, stmt query.Delete) (sql.ResultSet, e
 	if err != nil {
 		return nil, err
 	}
-	rows, err := db.Query(stmt.String())
+	result, err := db.Exec(stmt.String())
 	if err != nil {
 		return nil, err
 	}
 	return NewResultSet(
-		WithResultSetRows(rows),
+		WithResultSetResult(result),
 	)
 }
 
