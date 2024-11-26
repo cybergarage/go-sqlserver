@@ -130,6 +130,9 @@ func (rs *resultset) Schema() sql.Schema {
 
 // Next returns the next row.
 func (rs *resultset) Next() bool {
+	if rs.rows == nil {
+		return false
+	}
 	if rs.rows.Err() != nil {
 		return false
 	}
@@ -138,6 +141,12 @@ func (rs *resultset) Next() bool {
 
 // Row returns the current row.
 func (rs *resultset) Row() (sql.Row, error) {
+	if rs.schema == nil {
+		return nil, errors.New("schema is nil")
+	}
+	if rs.rows == nil {
+		return nil, errors.New("rows is nil")
+	}
 	dest := make([]any, len(rs.schema.Columns()))
 	for n, column := range rs.schema.Columns() {
 		switch column.DataType() {
@@ -175,5 +184,8 @@ func (rs *resultset) RowsAffected() uint64 {
 
 // Close closes the resultset.
 func (rs *resultset) Close() error {
+	if rs.rows == nil {
+		return nil
+	}
 	return rs.rows.Close()
 }
