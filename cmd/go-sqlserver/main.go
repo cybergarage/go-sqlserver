@@ -1,4 +1,4 @@
-// Copyright (C) 2020 The go-sqlserver Authors. All rights reserved.
+// Copyright (C) 2024 The go-sqlserver Authors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,10 +13,10 @@
 // limitations under the License.
 
 /*
-go-mysqld is an example of a compatible MySQL server implementation using go-mysql.
+go-sqlserver is an example of a compatible MySQL and PostgreSQL server implementation using go-mysql and go-postgresql.
 
 	NAME
-	 go-mysqld
+	 go-sqlserver
 
 	SYNOPSIS
 	 go-mysqld [OPTIONS]
