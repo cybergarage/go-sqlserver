@@ -17,6 +17,8 @@ package sql
 import (
 	dbsql "database/sql"
 	"errors"
+	"strings"
+	"time"
 
 	query "github.com/cybergarage/go-sqlparser/sql/query"
 	sql "github.com/cybergarage/go-sqlparser/sql/query/response/resultset"
@@ -34,18 +36,30 @@ type resultset struct {
 
 // NewResultSetDataTypeFrom creates a new result set data type from a column type.
 func NewResultSetDataTypeFrom(ct *dbsql.ColumnType) (sql.DataType, error) {
-	s := ct.DatabaseTypeName()
-	switch s {
-	case "INTEGER":
+	// Datatypes In SQLite
+	// https://sqlite.org/datatype3.html
+	s := strings.ToUpper(ct.DatabaseTypeName())
+	switch {
+	case strings.HasPrefix(s, "INT"):
 		return query.IntegerData, nil
-	case "REAL":
+	case strings.HasPrefix(s, "REAL"):
 		return query.RealData, nil
-	case "TEXT":
+	case strings.HasPrefix(s, "FLOAT"):
+		return query.FloatData, nil
+	case strings.HasPrefix(s, "DOUBLE"):
+		return query.DoubleData, nil
+	case strings.HasPrefix(s, "TEXT"):
 		return query.TextData, nil
-	case "BLOB":
+	case strings.HasPrefix(s, "VARCHAR"):
+		return query.TextData, nil
+	case strings.HasPrefix(s, "BLOB"):
 		return query.BlobData, nil
-	case "NUMERIC":
+	case strings.HasPrefix(s, "NUMERIC"):
 		return query.RealData, nil
+	case strings.HasPrefix(s, "TIMESTAMP"):
+		return query.TimeStampData, nil
+	case strings.HasPrefix(s, "DATETIME"):
+		return query.DateTimeData, nil
 	}
 	return 0, errors.New("unsupported data type")
 }
@@ -152,12 +166,14 @@ func (rs *resultset) Row() (sql.Row, error) {
 		switch column.DataType() {
 		case query.IntegerData:
 			dest[n] = new(int64)
-		case query.RealData:
+		case query.RealData, query.FloatData, query.DoubleData:
 			dest[n] = new(float64)
 		case query.TextData:
 			dest[n] = new(string)
 		case query.BlobData:
 			dest[n] = new([]byte)
+		case query.TimeStampData, query.DateTimeData:
+			dest[n] = new(time.Time)
 		default:
 			dest[n] = new(any)
 		}
