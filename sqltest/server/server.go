@@ -15,18 +15,18 @@
 package server
 
 import (
-	"github.com/cybergarage/go-sqlserver/cmd/go-sqlserver/server"
+	"github.com/cybergarage/go-sqlserver/sql"
 )
 
 // Server represents a test server.
 type Server struct {
-	*server.Server
+	sql.Server
 }
 
 // NewServer returns a test server instance.
 func NewServer() *Server {
 	s := &Server{
-		Server: server.NewServer(),
+		Server: sql.NewServer(),
 	}
 	return s
 }
