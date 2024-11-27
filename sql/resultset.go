@@ -165,7 +165,8 @@ func (rs *resultset) Row() (sql.Row, error) {
 	}
 	dest := make([]any, len(rs.schema.Columns()))
 	for n, column := range rs.schema.Columns() {
-		switch column.DataType() {
+		dt := column.DataType()
+		switch dt {
 		case query.IntegerData:
 			var v int
 			dest[n] = &v
