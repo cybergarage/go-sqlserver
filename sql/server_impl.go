@@ -38,7 +38,7 @@ func NewServer() Server {
 	}
 
 	// Set common SQL executor for MySQL and PostgreSQL
-	// server.SetSQLExecutor(server.Store)
+	server.SetSQLExecutor(server)
 
 	// PostgreSQL server settings
 	server.PostgreSQLServer().SetBulkQueryExecutor(server)
