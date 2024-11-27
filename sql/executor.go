@@ -62,12 +62,21 @@ func (server *server) Use(conn net.Conn, stmt query.Use) error {
 // CreateDatabase should handle a CREATE database statement.
 func (server *server) CreateDatabase(conn net.Conn, stmt query.CreateDatabase) error {
 	log.Debugf("%v", stmt)
-	db, err := server.LookupDatabase(conn.Database())
+	dbName := stmt.DatabaseName()
+	_, err := server.LookupDatabase(dbName)
+	if err == nil {
+		return err
+	}
+	db, err := NewDatabaseWithName(dbName)
 	if err != nil {
 		return err
 	}
-	_, err = db.Exec(stmt.String())
-	return err
+	err = server.Databases.AddDatabase(db)
+	if err != nil {
+		return err
+	}
+	conn.SetDatabase(dbName)
+	return nil
 }
 
 // AlterDatabase should handle a ALTER database statement.
