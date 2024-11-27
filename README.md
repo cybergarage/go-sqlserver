@@ -15,3 +15,5 @@ The `go-sqlserver` provides a set of tools and libraries to create custom SQL se
 
 The `go-sqlserver` provides a unified implementation framework of authentication and query handlers for both MySQL and PostgreSQL, allowing developers to build custom SQL servers that support both protocols. The framework is designed to be extensible, allowing developers to add custom query handlers, authentication mechanisms, and data storage backends.
 By using the framework , developers can easily build an SQL server that supports both MySQL and PostgreSQL protocols.
+
+The `go-sqlserver` is currently implemented as an in-memory database using SQLite as the default data store. This allows for quick and efficient data operations without the need for an external database server.
