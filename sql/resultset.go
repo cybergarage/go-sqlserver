@@ -40,7 +40,7 @@ func NewResultSetDataTypeFrom(ct *dbsql.ColumnType) (sql.DataType, error) {
 	// https://sqlite.org/datatype3.html
 	s := strings.ToUpper(ct.DatabaseTypeName())
 	switch {
-	case strings.HasPrefix(s, "INT"):
+	case (0 <= strings.Index(s, "INT")):
 		return query.IntegerData, nil
 	case strings.HasPrefix(s, "REAL"):
 		return query.RealData, nil
@@ -50,9 +50,11 @@ func NewResultSetDataTypeFrom(ct *dbsql.ColumnType) (sql.DataType, error) {
 		return query.DoubleData, nil
 	case strings.HasPrefix(s, "TEXT"):
 		return query.TextData, nil
-	case strings.HasPrefix(s, "VARCHAR"):
+	case (0 <= strings.Index(s, "VARCHAR")):
 		return query.TextData, nil
 	case strings.HasPrefix(s, "BLOB"):
+		return query.BlobData, nil
+	case strings.HasPrefix(s, "BINARY"):
 		return query.BlobData, nil
 	case strings.HasPrefix(s, "NUMERIC"):
 		return query.RealData, nil
@@ -165,17 +167,23 @@ func (rs *resultset) Row() (sql.Row, error) {
 	for n, column := range rs.schema.Columns() {
 		switch column.DataType() {
 		case query.IntegerData:
-			dest[n] = new(int64)
+			var v int
+			dest[n] = &v
 		case query.RealData, query.FloatData, query.DoubleData:
-			dest[n] = new(float64)
+			var v float64
+			dest[n] = &v
 		case query.TextData:
-			dest[n] = new(string)
+			var v string
+			dest[n] = &v
 		case query.BlobData:
-			dest[n] = new([]byte)
+			var v []byte
+			dest[n] = &v
 		case query.TimeStampData, query.DateTimeData:
-			dest[n] = new(time.Time)
+			var v time.Time
+			dest[n] = &v
 		default:
-			dest[n] = new(any)
+			var v any
+			dest[n] = &v
 		}
 	}
 	err := rs.rows.Scan(dest...)
@@ -184,13 +192,25 @@ func (rs *resultset) Row() (sql.Row, error) {
 	}
 	obj := map[string]any{}
 	for n, column := range rs.schema.Columns() {
-		obj[column.Name()] = dest[n]
+		switch v := dest[n].(type) {
+		case *int:
+			obj[column.Name()] = *v
+		case *float64:
+			obj[column.Name()] = *v
+		case *string:
+			obj[column.Name()] = *v
+		case *[]byte:
+			obj[column.Name()] = *v
+		case *time.Time:
+			obj[column.Name()] = *v
+		default:
+			obj[column.Name()] = v
+		}
 	}
 	return sql.NewRow(
-			sql.WithRowSchema(rs.schema),
-			sql.WithRowObject(obj),
-		),
-		nil
+		sql.WithRowSchema(rs.schema),
+		sql.WithRowObject(obj),
+	), nil
 }
 
 // RowsAffected returns the number of rows affected.
