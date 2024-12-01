@@ -1,0 +1,16 @@
+= DDL
+
+[format="csv", options="header, autowidth"]
+|====
+include::data/ddl_query.csv[]
+|====
+
+= DML
+
+[format="csv", options="header, autowidth"]
+|====
+include::data/dml_query.csv[]
+|====
+
+
+== References
