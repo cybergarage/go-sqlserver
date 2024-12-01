@@ -1,18 +1,6 @@
-Feature,SQL92,PostgreSQL,MySQL,SQLite
-Create Table,Supported,Supported,Supported,Supported
-Drop Table,Supported,Supported,Supported,Supported
-Alter Table,Supported,Supported,Supported,Supported
-Create Index,Supported,Supported,Supported,Supported
-Drop Index,Supported,Supported,Supported,Supported
-Create View,Supported,Supported,Supported,Supported
-Drop View,Supported,Supported,Supported,Supported
-Primary Key,Supported,Supported,Supported,Supported
-Foreign Key,Supported,Supported,Supported,Supported
-Unique Constraint,Supported,Supported,Supported,Supported
-Check Constraint,Supported,Supported,Supported,Supported
-Default Values,Supported,Supported,Supported,Supported
-Auto Increment,Not Supported,Supported (SERIAL),Supported (AUTO_INCREMENT),Supported (AUTOINCREMENT)
-Temporary Tables,Supported,Supported,Supported,Supported
-Schemas,Supported,Supported,Supported,Not Supported
-Tablespaces,Supported,Supported,Supported,Not Supported
-Sequences,Supported,Supported,Supported,Not Supported
+Command,SQL92,MySQL,PostgreSQL,SQLite
+CREATE DATABASE,Not Supported,"CREATE DATABASE db_name;","CREATE DATABASE db_name;","Not Supported (uses file-based storage)"
+CREATE TABLE,"CREATE TABLE table_name (col_name data_type, ...);","CREATE TABLE table_name (col_name data_type, ...);","CREATE TABLE table_name (col_name data_type, ...);","CREATE TABLE table_name (col_name data_type, ...);"
+CREATE INDEX,"CREATE INDEX idx_name ON table_name (col_name);","CREATE INDEX idx_name ON table_name (col_name);","CREATE INDEX idx_name ON table_name (col_name);","CREATE INDEX idx_name ON table_name (col_name);"
+ALTER TABLE,"ALTER TABLE table_name ADD COLUMN col_name data_type;","ALTER TABLE table_name ADD COLUMN col_name data_type;","ALTER TABLE table_name ADD COLUMN col_name data_type;","ALTER TABLE table_name ADD COLUMN col_name data_type;"
+DROP TABLE,"DROP TABLE table_name;","DROP TABLE table_name;","DROP TABLE table_name;","DROP TABLE table_name;"

@@ -1,7 +1,7 @@
-Operation,SQL92,PostgreSQL,MySQL,SQLite
-SELECT,SELECT * FROM table;,SELECT * FROM table;,SELECT * FROM table;,SELECT * FROM table;
-INSERT,INSERT INTO table (column1, column2) VALUES (value1, value2);,INSERT INTO table (column1, column2) VALUES (value1, value2);,INSERT INTO table (column1, column2) VALUES (value1, value2);,INSERT INTO table (column1, column2) VALUES (value1, value2);
-UPDATE,UPDATE table SET column1 = value1 WHERE condition;,UPDATE table SET column1 = value1 WHERE condition;,UPDATE table SET column1 = value1 WHERE condition;,UPDATE table SET column1 = value1 WHERE condition;
-DELETE,DELETE FROM table WHERE condition;,DELETE FROM table WHERE condition;,DELETE FROM table WHERE condition;,DELETE FROM table WHERE condition;
-UPSERT,Not supported,INSERT INTO table (column1, column2) VALUES (value1, value2) ON CONFLICT (column1) DO UPDATE SET column2 = excluded.column2;,INSERT INTO table (column1, column2) VALUES (value1, value2) ON DUPLICATE KEY UPDATE column2 = VALUES(column2);,INSERT INTO table (column1, column2) VALUES (value1, value2) ON CONFLICT(column1) DO UPDATE SET column2 = excluded.column2;
-MERGE,MERGE INTO table USING source_table ON condition WHEN MATCHED THEN UPDATE SET column1 = value1 WHEN NOT MATCHED THEN INSERT (column1, column2) VALUES (value1, value2);,Not supported,Not supported,Not supported
+Command,SQL92,MySQL,PostgreSQL,SQLite
+SELECT,"SELECT col_name FROM table_name WHERE condition;","Same","Same","Same"
+INSERT,"INSERT INTO table_name (col1, col2) VALUES (val1, val2);","Same","Same","Same"
+UPDATE,"UPDATE table_name SET col_name = value WHERE condition;","Same","Same","Same"
+DELETE,"DELETE FROM table_name WHERE condition;","Same","Same","Same"
+LIMIT,"Not Supported","SELECT ... LIMIT n;","SELECT ... LIMIT n;","SELECT ... LIMIT n;"
+MERGE,"MERGE INTO table_name USING ... ON condition WHEN MATCHED THEN ...;","Not Supported","Not Supported","Not Supported"
