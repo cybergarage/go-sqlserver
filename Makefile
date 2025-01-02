@@ -34,8 +34,9 @@ TEST_PKG=${MODULE_ROOT}/${TEST_SRC_ROOT}
 
 BINS_ROOT=cmd
 BINS_SRC_ROOT=${BINS_ROOT}
-BINS_DEAMON_BIN=go-sqlserver
+BINS_DEAMON_BIN=${PRODUCT_NAME}
 BINS_DOCKER_TAG=cybergarage/${BINS_DEAMON_BIN}:${PKG_VER}
+BINS_DOCKER_TAG_LATEST=cybergarage/${BINS_DEAMON_BIN}:latest
 BINS_PKG_ROOT=${GIT_ROOT}/${PRODUCT_NAME}/${BINS_ROOT}
 EXAMPLE_BINARIES=\
 	${BINS_PKG_ROOT}/${BINS_DEAMON_BIN}
@@ -81,6 +82,9 @@ run: install
 	${GOBIN}/${BINS_DEAMON_BIN} --debug
 
 image: test
+	docker image build -t${BINS_DOCKER_TAG} -t${BIN_SERVER_DOCKER_TAG_LATEST} .
+	docker push ${BIN_SERVER_DOCKER_TAG_LATEST}
+
 	docker image build -t ${BINS_DOCKER_TAG} .
 
 rund: image
