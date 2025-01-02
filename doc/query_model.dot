@@ -1,0 +1,71 @@
+digraph SQLQuery {
+
+    graph[rankdir="LR"];
+    
+    subgraph cluster_QUERY {
+        label = "Query Executor";
+
+        subgraph cluster_DDO {
+            label = "DDO";
+            node [shape=box];
+
+            CreateDatabase [label="CREATE DATABASE"];
+            DropDatabase [label="DROP DATABASE"];
+            
+            CreateTable [label="CREATE TABLE"];
+            AlterTable [label="ALTER TABLE"];
+            DropTable [label="DROP TABLE"];
+        }
+
+        subgraph cluster_DMO {
+            label = "DMO";
+            
+            Insert [label="INSERT"];
+            Update [label="UPDATE"];
+            Delete [label="DELETE"];
+            Select [label="SELECT"];
+        }
+
+        subgraph cluster_TCO {
+            label = "TCO";
+            
+            Begin [label="BEGIN"];
+            Commit [label="COMMIT"];
+            Rollback [label="ROLLBACK"];
+        }
+
+        subgraph cluster_DCO {
+            label = "DCO";
+            
+            Use [label="USE"];
+        }
+
+        subgraph cluster_DMO_SYS {
+            label = "Sysetem DMO";
+            
+            SystemSelect [label="SELECT"];
+        }
+
+    }
+
+    subgraph cluster_SUGAR_QUERY {
+        label = "Query Executor (Sugar)";
+
+        subgraph cluster_SUGER_DDO {
+            label = "DDO";
+            node [shape=box];
+            CreateIndex [label="CREATE INDEX"];
+            DropIndex [label="DROP INDEX"];
+        }
+
+        subgraph cluster_SUGER_DMO {
+            label = "DMO";
+            node [shape=box];
+            Trancate [label="TRUNCATE"];
+        }
+    }
+
+    CreateIndex -> AlterTable;
+    DropIndex -> AlterTable;
+    Trancate -> Delete;
+}
