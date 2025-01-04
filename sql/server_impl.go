@@ -24,6 +24,7 @@ import (
 
 // Server represents a SQL server.
 type server struct {
+	Config
 	*Databases
 	myServer mysql.Server
 	pgServer postgresql.Server
@@ -31,7 +32,13 @@ type server struct {
 
 // NewServer creates a new SQL server.
 func NewServer() Server {
+	conf, err := NewDefaultConfig()
+	if err != nil {
+		panic(err)
+	}
+
 	server := &server{
+		Config:    conf,
 		Databases: NewDatabases(),
 		myServer:  mysql.NewServer(),
 		pgServer:  postgresql.NewServer(),
