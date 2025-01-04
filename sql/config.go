@@ -21,19 +21,12 @@ import (
 )
 
 const (
-	ConfigAPI     = "api"
-	ConfigPlugins = "plugins"
-	ConfigGrpc    = "grpc"
-	ConfigQuery   = "query"
-	ConfigPort    = "port"
-	ConfigEnabled = "enabled"
-	ConfigTracer  = "tracer"
-	ConfigPprof   = "pprof"
 	ConfigLogger  = "logger"
-	ConfigDefault = "default"
-	ConfigLevel   = "level"
-	ConfigAuth    = "auth"
 	ConfigTLS     = "tls"
+	ConfigAuth    = "auth"
+	ConfigQuery   = "query"
+	ConfigTracer  = "tracer"
+	ConfigMetrics = "metrics"
 )
 
 // Config represents a configuration interface for PuzzleDB.
