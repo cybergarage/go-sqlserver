@@ -14,31 +14,29 @@
 
 package sql
 
-const (
-	defaultAddr = ""
+import (
+	_ "embed"
+
+	"github.com/cybergarage/go-sqlserver/sql/config"
 )
 
-// Config stores server configuration parammeters.
-type Config struct {
-	addr string
-	*TLSConf
-}
+const (
+	ConfigAPI     = "api"
+	ConfigPlugins = "plugins"
+	ConfigGrpc    = "grpc"
+	ConfigQuery   = "query"
+	ConfigPort    = "port"
+	ConfigEnabled = "enabled"
+	ConfigTracer  = "tracer"
+	ConfigPprof   = "pprof"
+	ConfigLogger  = "logger"
+	ConfigDefault = "default"
+	ConfigLevel   = "level"
+	ConfigAuth    = "auth"
+	ConfigTLS     = "tls"
+)
 
-// NewDefaultConfig returns a default configuration instance.
-func NewDefaultConfig() *Config {
-	config := &Config{
-		addr:    defaultAddr,
-		TLSConf: NewTLSConf(),
-	}
-	return config
-}
-
-// SetAddress sets a listen address to the configuration.
-func (config *Config) SetAddress(addr string) {
-	config.addr = addr
-}
-
-// Address returns a listen address from the configuration.
-func (config *Config) Address() string {
-	return config.addr
+// Config represents a configuration interface for PuzzleDB.
+type Config interface {
+	config.Config
 }
