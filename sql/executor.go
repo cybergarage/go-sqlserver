@@ -64,7 +64,7 @@ func (server *server) CreateDatabase(conn net.Conn, stmt query.CreateDatabase) e
 	log.Debugf("%v", stmt)
 	dbName := stmt.DatabaseName()
 	_, err := server.LookupDatabase(dbName)
-	if err == nil {
+	if err != nil {
 		return err
 	}
 	db, err := NewDatabaseWithName(dbName)
