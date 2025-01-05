@@ -42,10 +42,6 @@ import (
 	"github.com/cybergarage/go-sqlserver/sql"
 )
 
-const (
-	ProgramName = " go-sqlserver"
-)
-
 func main() {
 	isDebugEnabled := flag.Bool("debug", false, "enable debugging log output")
 	isProfileEnabled := flag.Bool("profile", false, "enable profiling server")
@@ -69,7 +65,7 @@ func main() {
 	server := sql.NewServer()
 	err := server.Start()
 	if err != nil {
-		log.Printf("%s couldn't be started (%s)", ProgramName, err.Error())
+		log.Printf("%s couldn't be started (%s)", sql.ProductName, err.Error())
 		os.Exit(1)
 	}
 
@@ -91,14 +87,14 @@ func main() {
 				log.Printf("Caught SIGHUP, restarting...")
 				err = server.Restart()
 				if err != nil {
-					log.Printf("%s couldn't be restarted (%s)", ProgramName, err.Error())
+					log.Printf("%s couldn't be restarted (%s)", sql.ProductName, err.Error())
 					os.Exit(1)
 				}
 			case syscall.SIGINT, syscall.SIGTERM:
 				log.Printf("Caught %s, stopping...", s.String())
 				err = server.Stop()
 				if err != nil {
-					log.Printf("%s couldn't be stopped (%s)", ProgramName, err.Error())
+					log.Printf("%s couldn't be stopped (%s)", sql.ProductName, err.Error())
 					os.Exit(1)
 				}
 				exitCh <- 0
