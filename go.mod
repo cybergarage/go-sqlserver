@@ -11,6 +11,7 @@ require (
 	github.com/cybergarage/go-sqltest v1.4.3
 	github.com/cybergarage/go-tracing v1.1.3
 	github.com/ncruces/go-sqlite3 v0.21.3
+	github.com/spf13/viper v1.19.0
 )
 
 require (
@@ -36,7 +37,6 @@ require (
 	github.com/spf13/afero v1.11.0 // indirect
 	github.com/spf13/cast v1.6.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	github.com/spf13/viper v1.19.0 // indirect
 	github.com/subosito/gotenv v1.6.0 // indirect
 	github.com/tetratelabs/wazero v1.8.2 // indirect
 	go.uber.org/atomic v1.10.0 // indirect
