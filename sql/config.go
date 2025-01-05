@@ -16,8 +16,6 @@ package sql
 
 import (
 	_ "embed"
-
-	"github.com/cybergarage/go-sqlserver/sql/config"
 )
 
 const (
@@ -31,5 +29,5 @@ const (
 
 // Config represents a configuration interface for PuzzleDB.
 type Config interface {
-	config.Config
+	MySQLPort() int
 }
