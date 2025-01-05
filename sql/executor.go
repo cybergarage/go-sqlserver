@@ -1,4 +1,4 @@
-// Copyright (C) 2020 The go-sqlserver Authors. All rights reserved.
+// Copyright (C) 2024 The go-sqlserver Authors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -62,11 +62,17 @@ func (server *server) Use(conn net.Conn, stmt query.Use) error {
 // CreateDatabase should handle a CREATE database statement.
 func (server *server) CreateDatabase(conn net.Conn, stmt query.CreateDatabase) error {
 	log.Debugf("%v", stmt)
+
 	dbName := stmt.DatabaseName()
+
 	_, err := server.LookupDatabase(dbName)
-	if err != nil {
-		return err
+	if err == nil {
+		if stmt.IfNotExists() {
+			return nil
+		}
+		return newErrDatabaseExist(dbName)
 	}
+
 	db, err := NewDatabaseWithName(dbName)
 	if err != nil {
 		return err
