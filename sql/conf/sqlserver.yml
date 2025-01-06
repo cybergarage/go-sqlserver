@@ -10,6 +10,9 @@ query:
     port: 3306
   postgresql:
     port: 5432
+store:
+  sqlite:
+    memory: true
 metrics:
   prometheus:
     enabled: true
