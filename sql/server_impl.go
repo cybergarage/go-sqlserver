@@ -99,24 +99,56 @@ func (server *server) applyConfig() error {
 }
 
 // Start starts the SQL server.
+func (server *server) setupLogger() error {
+	ok, err := server.IsLoggerEnabled()
+	if err != nil {
+		return err
+	}
+
+	if !ok {
+		return nil
+	}
+
+	levelStr, err := server.LoggerLevel()
+	if err != nil {
+		return err
+	}
+
+	level := log.GetLevelFromString(levelStr)
+	log.SetSharedLogger(log.NewStdoutLogger(level))
+
+	return nil
+}
+
+func (server *server) setupTLSConfig() error {
+	ok, err := server.IsTLSEnabled()
+	if err != nil {
+		return err
+	}
+	if !ok {
+		return nil
+	}
+	tlsConfig, err := server.TLSConfig()
+	if err != nil {
+		return err
+	}
+	server.myServer.SetTLSConfig(tlsConfig)
+	server.pgServer.SetTLSConfig(tlsConfig)
+	return nil
+}
+
+// Start starts the SQL server.
 func (server *server) Start() error {
-	log.SetSharedLogger(nil)
-	if ok, err := server.IsLoggerEnabled(); err == nil {
-		if ok {
-			levelStr, err := server.LoggerLevel()
-			if err != nil {
-				return err
-			}
-			level := log.GetLevelFromString(levelStr)
-			log.SetSharedLogger(log.NewStdoutLogger(level))
-		}
-	} else {
+	if err := server.setupLogger(); err != nil {
 		return err
 	}
 
 	log.Infof("%s %s started", ProductName, Version)
 
 	if err := server.applyConfig(); err != nil {
+		return err
+	}
+	if err := server.setupTLSConfig(); err != nil {
 		return err
 	}
 

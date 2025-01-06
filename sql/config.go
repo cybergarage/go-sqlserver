@@ -15,6 +15,7 @@
 package sql
 
 import (
+	"crypto/tls"
 	_ "embed"
 )
 
@@ -42,4 +43,8 @@ type Config interface {
 	IsLoggerEnabled() (bool, error)
 	// LoggerLevel returns the logger level.
 	LoggerLevel() (string, error)
+	// IsTLSEnabled returns true if the TLS is enabled.
+	IsTLSEnabled() (bool, error)
+	// TLSCert returns the TLS certificate.
+	TLSConfig() (*tls.Config, error)
 }

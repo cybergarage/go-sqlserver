@@ -17,6 +17,7 @@ package sql
 import (
 	"bufio"
 	"bytes"
+	"crypto/tls"
 	_ "embed"
 	"os"
 
@@ -102,4 +103,31 @@ func (config *configImpl) IsLoggerEnabled() (bool, error) {
 // LoggerLevel returns the logger level.
 func (config *configImpl) LoggerLevel() (string, error) {
 	return config.LookupConfigString(ConfigLogger, ConfigLevel)
+}
+
+// IsTLSEnabled returns true if the TLS is enabled.
+func (config *configImpl) IsTLSEnabled() (bool, error) {
+	return config.LookupConfigBool(ConfigTLS, ConfigEnabled)
+}
+
+// TLSCert returns the TLS certificate.
+func (config *configImpl) TLSConfig() (*tls.Config, error) {
+	type tlsParams struct {
+		CertFile string   `mapstructure:"cert_file"`
+		KeyFile  string   `mapstructure:"key_file"`
+		CAFiles  []string `mapstructure:"ca_files"`
+	}
+
+	var tlsConfig tlsParams
+	err := config.UnmarshallConfig([]string{ConfigTLS}, &tlsConfig)
+	if err != nil {
+		return nil, err
+	}
+
+	tlsConf := NewTLSConf()
+	tlsConf.SetServerCertFile(tlsConfig.CertFile)
+	tlsConf.SetServerKeyFile(tlsConfig.KeyFile)
+	tlsConf.SetRootCertFiles(tlsConfig.CAFiles...)
+
+	return tlsConf.TLSConfig()
 }
