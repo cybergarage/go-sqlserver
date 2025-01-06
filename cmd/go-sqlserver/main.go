@@ -15,17 +15,19 @@
 package main
 
 import (
-	"log"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
 
+	"github.com/cybergarage/go-logger/log"
 	"github.com/cybergarage/go-sqlserver/sql"
 	"github.com/urfave/cli/v2"
 )
 
 func main() {
+	log.SetSharedLogger(log.NewStdoutLogger(log.LevelError))
+
 	server := sql.NewServer()
 
 	var configFile string
@@ -50,14 +52,14 @@ func main() {
 			if configFile != "" {
 				conf, err := sql.NewConfigWithPath(configFile)
 				if err != nil {
-					log.Printf("Couldn't load config file (%s)", err.Error())
+					log.Errorf("Couldn't load config file (%s)", err.Error())
 					return err
 				}
 				server.SetConfig(conf)
 			}
 			err := server.Start()
 			if err != nil {
-				log.Printf("%s couldn't be started (%s)", sql.ProductName, err.Error())
+				log.Errorf("%s couldn't be started (%s)", sql.ProductName, err.Error())
 				return err
 			}
 			sigCh := make(chan os.Signal, 1)
@@ -75,17 +77,17 @@ func main() {
 					s := <-sigCh
 					switch s {
 					case syscall.SIGHUP:
-						log.Printf("Caught SIGHUP, restarting...")
+						log.Infof("Caught SIGHUP, restarting...")
 						err = server.Restart()
 						if err != nil {
-							log.Printf("%s couldn't be restarted (%s)", sql.ProductName, err.Error())
+							log.Infof("%s couldn't be restarted (%s)", sql.ProductName, err.Error())
 							os.Exit(1)
 						}
 					case syscall.SIGINT, syscall.SIGTERM:
-						log.Printf("Caught %s, stopping...", s.String())
+						log.Infof("Caught %s, stopping...", s.String())
 						err = server.Stop()
 						if err != nil {
-							log.Printf("%s couldn't be stopped (%s)", sql.ProductName, err.Error())
+							log.Infof("%s couldn't be stopped (%s)", sql.ProductName, err.Error())
 							os.Exit(1)
 						}
 						exitCh <- 0
