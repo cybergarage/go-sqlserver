@@ -31,6 +31,7 @@ const (
 	ConfigPort       = "port"
 	ConfigEnabled    = "enabled"
 	ConfigLevel      = "level"
+	ConfigPrometheus = "prometheus"
 )
 
 // Config represents a configuration interface for PuzzleDB.
@@ -47,4 +48,8 @@ type Config interface {
 	IsTLSEnabled() (bool, error)
 	// TLSCert returns the TLS certificate.
 	TLSConfig() (*tls.Config, error)
+	// IsPrometheusEnabled returns true if the Prometheus is enabled.
+	IsPrometheusEnabled() (bool, error)
+	// PrometheusPort returns the Prometheus port.
+	PrometheusPort() (int, error)
 }

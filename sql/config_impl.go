@@ -131,3 +131,13 @@ func (config *configImpl) TLSConfig() (*tls.Config, error) {
 
 	return tlsConf.TLSConfig()
 }
+
+// IsPrometheusEnabled returns true if the Prometheus is enabled.
+func (config *configImpl) IsPrometheusEnabled() (bool, error) {
+	return config.LookupConfigBool(ConfigMetrics, ConfigPrometheus, ConfigEnabled)
+}
+
+// PrometheusPort returns the Prometheus port.
+func (config *configImpl) PrometheusPort() (int, error) {
+	return config.LookupConfigInt(ConfigMetrics, ConfigPrometheus, ConfigPort)
+}

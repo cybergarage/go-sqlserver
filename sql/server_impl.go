@@ -27,8 +27,9 @@ import (
 type server struct {
 	Config
 	*Databases
-	myServer mysql.Server
-	pgServer postgresql.Server
+	myServer   mysql.Server
+	pgServer   postgresql.Server
+	ptExporter *PrometheusExporter
 }
 
 // NewServer creates a new SQL server.
@@ -39,10 +40,11 @@ func NewServer() Server {
 	}
 
 	server := &server{
-		Config:    conf,
-		Databases: NewDatabases(),
-		myServer:  mysql.NewServer(),
-		pgServer:  postgresql.NewServer(),
+		Config:     conf,
+		Databases:  NewDatabases(),
+		myServer:   mysql.NewServer(),
+		pgServer:   postgresql.NewServer(),
+		ptExporter: NewPrometheusExporter(),
 	}
 
 	// Set common SQL executor for MySQL and PostgreSQL
@@ -98,7 +100,6 @@ func (server *server) applyConfig() error {
 	return nil
 }
 
-// Start starts the SQL server.
 func (server *server) setupLogger() error {
 	ok, err := server.IsLoggerEnabled()
 	if err != nil {
@@ -117,6 +118,22 @@ func (server *server) setupLogger() error {
 	level := log.GetLevelFromString(levelStr)
 	log.SetSharedLogger(log.NewStdoutLogger(level))
 
+	return nil
+}
+
+func (server *server) setupPrometheus() error {
+	ok, err := server.IsPrometheusEnabled()
+	if err != nil {
+		return err
+	}
+	if !ok {
+		return nil
+	}
+	port, err := server.PrometheusPort()
+	if err != nil {
+		return err
+	}
+	server.ptExporter.SetPort(port)
 	return nil
 }
 
@@ -151,14 +168,27 @@ func (server *server) Start() error {
 	if err := server.setupTLSConfig(); err != nil {
 		return err
 	}
+	if err := server.setupPrometheus(); err != nil {
+		return err
+	}
 
 	type starter interface {
 		Start() error
 	}
+
 	starters := []starter{
 		server.myServer,
 		server.pgServer,
 	}
+
+	ok, err := server.IsPrometheusEnabled()
+	if err != nil {
+		return err
+	}
+	if ok {
+		starters = append(starters, server.ptExporter)
+	}
+
 	for _, s := range starters {
 		if err := s.Start(); err != nil {
 			return server.Stop()
@@ -173,11 +203,20 @@ func (server *server) Stop() error {
 	type stopper interface {
 		Stop() error
 	}
+
 	stoppers := []stopper{
 		server.myServer,
 		server.pgServer,
 	}
-	var err error
+
+	ok, err := server.IsPrometheusEnabled()
+	if err != nil {
+		return err
+	}
+	if ok {
+		stoppers = append(stoppers, server.ptExporter)
+	}
+
 	for _, s := range stoppers {
 		if e := s.Stop(); e != nil {
 			err = errors.Join(err, e)
