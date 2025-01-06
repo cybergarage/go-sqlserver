@@ -32,13 +32,13 @@ func main() {
 
 	var configFile string
 
-	app := &cli.App{
+	app := &cli.App{ //nolint:exhaustruct
 		Name:     sql.ProductName,
 		Usage:    "SQL server",
 		Version:  sql.Version,
 		Compiled: time.Now(),
 		Flags: []cli.Flag{
-			&cli.StringFlag{
+			&cli.StringFlag{ //nolint:exhaustruct
 				Name:        "config-file",
 				Value:       "",
 				Usage:       "config file",
