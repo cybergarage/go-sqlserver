@@ -17,6 +17,7 @@ package sql
 import (
 	"errors"
 
+	"github.com/cybergarage/go-logger/log"
 	"github.com/cybergarage/go-mysql/mysql"
 	"github.com/cybergarage/go-postgresql/postgresql"
 	"github.com/cybergarage/go-tracing/tracer"
@@ -99,6 +100,22 @@ func (server *server) applyConfig() error {
 
 // Start starts the SQL server.
 func (server *server) Start() error {
+	log.SetSharedLogger(nil)
+	if ok, err := server.IsLoggerEnabled(); err == nil {
+		if ok {
+			levelStr, err := server.LoggerLevel()
+			if err != nil {
+				return err
+			}
+			level := log.GetLevelFromString(levelStr)
+			log.SetSharedLogger(log.NewStdoutLogger(level))
+		}
+	} else {
+		return err
+	}
+
+	log.Infof("%s %s started", ProductName, Version)
+
 	if err := server.applyConfig(); err != nil {
 		return err
 	}
@@ -115,6 +132,7 @@ func (server *server) Start() error {
 			return server.Stop()
 		}
 	}
+
 	return nil
 }
 
@@ -133,6 +151,9 @@ func (server *server) Stop() error {
 			err = errors.Join(err, e)
 		}
 	}
+
+	log.Infof("%s %s terminated", ProductName, Version)
+
 	return err
 }
 

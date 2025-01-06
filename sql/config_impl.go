@@ -93,3 +93,13 @@ func (config *configImpl) MySQLPort() (int, error) {
 func (config *configImpl) PostgresqlPort() (int, error) {
 	return config.LookupConfigInt(ConfigQuery, ConfigPostgresql, ConfigPort)
 }
+
+// IsLoggerEnabled returns true if the logger is enabled.
+func (config *configImpl) IsLoggerEnabled() (bool, error) {
+	return config.LookupConfigBool(ConfigLogger, ConfigEnabled)
+}
+
+// LoggerLevel returns the logger level.
+func (config *configImpl) LoggerLevel() (string, error) {
+	return config.LookupConfigString(ConfigLogger, ConfigLevel)
+}

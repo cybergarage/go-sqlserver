@@ -28,6 +28,8 @@ const (
 	ConfigMySQL      = "mysql"
 	ConfigPostgresql = "postgresql"
 	ConfigPort       = "port"
+	ConfigEnabled    = "enabled"
+	ConfigLevel      = "level"
 )
 
 // Config represents a configuration interface for PuzzleDB.
@@ -36,4 +38,8 @@ type Config interface {
 	MySQLPort() (int, error)
 	// PostgresqlPort returns the Postgresql port.
 	PostgresqlPort() (int, error)
+	// IsLoggerEnabled returns true if the logger is enabled.
+	IsLoggerEnabled() (bool, error)
+	// LoggerLevel returns the logger level.
+	LoggerLevel() (string, error)
 }
