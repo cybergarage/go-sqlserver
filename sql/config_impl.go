@@ -141,3 +141,8 @@ func (config *configImpl) IsPrometheusEnabled() (bool, error) {
 func (config *configImpl) PrometheusPort() (int, error) {
 	return config.LookupConfigInt(ConfigMetrics, ConfigPrometheus, ConfigPort)
 }
+
+// IsStoreMemory returns true if the store is memory.
+func (config *configImpl) IsStoreMemory() (bool, error) {
+	return config.LookupConfigBool(ConfigStore, ConfigSQLite, ConfigMemory)
+}

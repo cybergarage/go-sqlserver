@@ -16,7 +16,6 @@ package sql
 
 import (
 	"crypto/tls"
-	_ "embed"
 )
 
 const (
@@ -32,6 +31,9 @@ const (
 	ConfigEnabled    = "enabled"
 	ConfigLevel      = "level"
 	ConfigPrometheus = "prometheus"
+	ConfigStore      = "store"
+	ConfigSQLite     = "sqlite"
+	ConfigMemory     = "memory"
 )
 
 // Config represents a configuration interface for PuzzleDB.
@@ -52,4 +54,6 @@ type Config interface {
 	IsPrometheusEnabled() (bool, error)
 	// PrometheusPort returns the Prometheus port.
 	PrometheusPort() (int, error)
+	// IsStoreMemory returns true if the store is memory.
+	IsStoreMemory() (bool, error)
 }
