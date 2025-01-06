@@ -12,97 +12,97 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/*
-go-sqlserver is an example of a compatible MySQL and PostgreSQL server implementation using go-mysql and go-postgresql.
-
-	NAME
-	 go-sqlserver
-
-	SYNOPSIS
-	 go-mysqld [OPTIONS]
-
-	OPTIONS
-	-v      : Enable verbose output.
-	-p      : Enable profiling.
-
-	RETURN VALUE
-	  Return EXIT_SUCCESS or EXIT_FAILURE
-*/
 package main
 
 import (
-	"flag"
 	"log"
-	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 
-	clog "github.com/cybergarage/go-logger/log"
 	"github.com/cybergarage/go-sqlserver/sql"
+	"github.com/urfave/cli/v2"
 )
 
 func main() {
-	isDebugEnabled := flag.Bool("debug", false, "enable debugging log output")
-	isProfileEnabled := flag.Bool("profile", false, "enable profiling server")
-	flag.Parse()
-
-	logLevel := clog.LevelTrace
-	if *isDebugEnabled {
-		logLevel = clog.LevelDebug
-	}
-	clog.SetSharedLogger(clog.NewStdoutLogger(logLevel))
-
-	if *isProfileEnabled {
-		go func() {
-			// nolint: gosec
-			log.Println(http.ListenAndServe("localhost:6060", nil))
-		}()
-	}
-
-	// Start server
-
 	server := sql.NewServer()
-	err := server.Start()
+
+	var configFile string
+
+	app := &cli.App{
+		Name:     sql.ProductName,
+		Usage:    "SQL server",
+		Version:  sql.Version,
+		Compiled: time.Now(),
+		Flags: []cli.Flag{
+			&cli.StringFlag{
+				Name:        "config-file",
+				Value:       "",
+				Usage:       "config file",
+				Destination: &configFile,
+			},
+		},
+		Action: func(cCtx *cli.Context) error {
+			if cCtx.Bool("help") || cCtx.Bool("version") {
+				return nil
+			}
+			if configFile != "" {
+				conf, err := sql.NewConfigWithPath(configFile)
+				if err != nil {
+					log.Printf("Couldn't load config file (%s)", err.Error())
+					return err
+				}
+				server.SetConfig(conf)
+			}
+			err := server.Start()
+			if err != nil {
+				log.Printf("%s couldn't be started (%s)", sql.ProductName, err.Error())
+				return err
+			}
+			sigCh := make(chan os.Signal, 1)
+
+			signal.Notify(sigCh,
+				os.Interrupt,
+				syscall.SIGHUP,
+				syscall.SIGINT,
+				syscall.SIGTERM)
+
+			exitCh := make(chan int)
+
+			go func() {
+				for {
+					s := <-sigCh
+					switch s {
+					case syscall.SIGHUP:
+						log.Printf("Caught SIGHUP, restarting...")
+						err = server.Restart()
+						if err != nil {
+							log.Printf("%s couldn't be restarted (%s)", sql.ProductName, err.Error())
+							os.Exit(1)
+						}
+					case syscall.SIGINT, syscall.SIGTERM:
+						log.Printf("Caught %s, stopping...", s.String())
+						err = server.Stop()
+						if err != nil {
+							log.Printf("%s couldn't be stopped (%s)", sql.ProductName, err.Error())
+							os.Exit(1)
+						}
+						exitCh <- 0
+					}
+				}
+			}()
+
+			code := <-exitCh
+
+			os.Exit(code)
+
+			return nil
+		},
+	}
+
+	err := app.Run(os.Args)
 	if err != nil {
-		log.Printf("%s couldn't be started (%s)", sql.ProductName, err.Error())
 		os.Exit(1)
 	}
-
-	sigCh := make(chan os.Signal, 1)
-
-	signal.Notify(sigCh,
-		os.Interrupt,
-		syscall.SIGHUP,
-		syscall.SIGINT,
-		syscall.SIGTERM)
-
-	exitCh := make(chan int)
-
-	go func() {
-		for {
-			s := <-sigCh
-			switch s {
-			case syscall.SIGHUP:
-				log.Printf("Caught SIGHUP, restarting...")
-				err = server.Restart()
-				if err != nil {
-					log.Printf("%s couldn't be restarted (%s)", sql.ProductName, err.Error())
-					os.Exit(1)
-				}
-			case syscall.SIGINT, syscall.SIGTERM:
-				log.Printf("Caught %s, stopping...", s.String())
-				err = server.Stop()
-				if err != nil {
-					log.Printf("%s couldn't be stopped (%s)", sql.ProductName, err.Error())
-					os.Exit(1)
-				}
-				exitCh <- 0
-			}
-		}
-	}()
-
-	code := <-exitCh
-
-	os.Exit(code)
 }
