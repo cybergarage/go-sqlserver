@@ -83,6 +83,12 @@ func (server *server) applyConfig() error {
 	}
 	server.myServer.SetPort(port)
 
+	port, err = server.PostgresqlPort()
+	if err != nil {
+		return err
+	}
+	server.pgServer.SetPort(port)
+
 	return nil
 }
 

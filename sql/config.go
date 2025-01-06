@@ -19,18 +19,21 @@ import (
 )
 
 const (
-	ConfigLogger  = "logger"
-	ConfigTLS     = "tls"
-	ConfigAuth    = "auth"
-	ConfigQuery   = "query"
-	ConfigTracer  = "tracer"
-	ConfigMetrics = "metrics"
-	ConfigMySQL   = "mysql"
-	ConfigPort    = "port"
+	ConfigLogger     = "logger"
+	ConfigTLS        = "tls"
+	ConfigAuth       = "auth"
+	ConfigQuery      = "query"
+	ConfigTracer     = "tracer"
+	ConfigMetrics    = "metrics"
+	ConfigMySQL      = "mysql"
+	ConfigPostgresql = "postgresql"
+	ConfigPort       = "port"
 )
 
 // Config represents a configuration interface for PuzzleDB.
 type Config interface {
 	// MySQLPort returns the MySQL port.
 	MySQLPort() (int, error)
+	// PostgresqlPort returns the Postgresql port.
+	PostgresqlPort() (int, error)
 }

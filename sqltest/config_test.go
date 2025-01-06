@@ -32,6 +32,9 @@ func TestDefaultConfig(t *testing.T) {
 		func() (any, error) {
 			return cfg.MySQLPort()
 		},
+		func() (any, error) {
+			return cfg.PostgresqlPort()
+		},
 	}
 
 	for _, f := range fns {

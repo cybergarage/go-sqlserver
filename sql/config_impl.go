@@ -88,3 +88,8 @@ func NewConfigWithFile(confFile string) (Config, error) {
 func (config *configImpl) MySQLPort() (int, error) {
 	return config.LookupConfigInt(ConfigQuery, ConfigMySQL, ConfigPort)
 }
+
+// PostgresqlPort returns the Postgresql port.
+func (config *configImpl) PostgresqlPort() (int, error) {
+	return config.LookupConfigInt(ConfigQuery, ConfigPostgresql, ConfigPort)
+}
