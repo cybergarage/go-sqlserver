@@ -9,7 +9,7 @@ require (
 	github.com/cybergarage/go-postgresql v1.6.2
 	github.com/cybergarage/go-sqlparser v1.4.2
 	github.com/cybergarage/go-sqltest v1.4.3
-	github.com/cybergarage/go-tracing v1.1.3
+	github.com/cybergarage/go-tracing v1.1.4
 	github.com/ncruces/go-sqlite3 v0.21.3
 	github.com/spf13/viper v1.19.0
 	github.com/urfave/cli/v2 v2.27.5
