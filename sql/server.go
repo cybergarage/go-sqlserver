@@ -26,6 +26,8 @@ type SQLExecutor = sql.Executor
 
 // Server represents a PostgreSQL protocol server.
 type Server interface {
+	// SetConfig sets a configuration.
+	SetConfig(Config)
 	// SetTracer sets a tracing tracer.
 	SetTracer(tracer.Tracer)
 	// SetSQLExecutor sets a SQL executor.

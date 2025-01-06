@@ -54,6 +54,11 @@ func NewServer() Server {
 	return server
 }
 
+// SetConfig sets a configuration.
+func (server *server) SetConfig(conf Config) {
+	server.Config = conf
+}
+
 // SetTracer sets a tracing tracer.
 func (server *server) SetTracer(tracer tracer.Tracer) {
 	server.myServer.SetTracer(tracer)
