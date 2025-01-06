@@ -25,9 +25,12 @@ const (
 	ConfigQuery   = "query"
 	ConfigTracer  = "tracer"
 	ConfigMetrics = "metrics"
+	ConfigMySQL   = "mysql"
+	ConfigPort    = "port"
 )
 
 // Config represents a configuration interface for PuzzleDB.
 type Config interface {
-	MySQLPort() int
+	// MySQLPort returns the MySQL port.
+	MySQLPort() (int, error)
 }

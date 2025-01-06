@@ -21,5 +21,22 @@ import (
 )
 
 func TestDefaultConfig(t *testing.T) {
-	sql.NewDefaultConfig()
+	cfg, err := sql.NewDefaultConfig()
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	type fn func() (any, error)
+	fns := []fn{
+		func() (any, error) {
+			return cfg.MySQLPort()
+		},
+	}
+
+	for _, f := range fns {
+		if _, err := f(); err != nil {
+			t.Error(err)
+		}
+	}
 }

@@ -84,6 +84,7 @@ func NewConfigWithFile(confFile string) (Config, error) {
 	return &configImpl{conf}, nil
 }
 
-func (config *configImpl) MySQLPort() int {
-	return 0
+// MySQLPort returns the MySQL port.
+func (config *configImpl) MySQLPort() (int, error) {
+	return config.LookupConfigInt(ConfigQuery, ConfigMySQL, ConfigPort)
 }

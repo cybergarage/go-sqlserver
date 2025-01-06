@@ -76,8 +76,22 @@ func (server *server) PostgreSQLServer() postgresql.Server {
 	return server.pgServer
 }
 
+func (server *server) applyConfig() error {
+	port, err := server.MySQLPort()
+	if err != nil {
+		return err
+	}
+	server.myServer.SetPort(port)
+
+	return nil
+}
+
 // Start starts the SQL server.
 func (server *server) Start() error {
+	if err := server.applyConfig(); err != nil {
+		return err
+	}
+
 	type starter interface {
 		Start() error
 	}
