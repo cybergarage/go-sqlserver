@@ -56,6 +56,11 @@ func main() {
 					return err
 				}
 				server.SetConfig(conf)
+			} else {
+				localConf, err := sql.NewConfigWithPath(".")
+				if err == nil {
+					server.SetConfig(localConf)
+				}
 			}
 			err := server.Start()
 			if err != nil {
