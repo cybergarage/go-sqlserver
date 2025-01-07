@@ -8,7 +8,7 @@ The configuration file is divided into sections. Each section is a YAML map. **g
 
 [options="yaml"]
 ----
-include::../sql/conf/sqlserver.yml[]
+include::../sql/conf/go-sqlserver.yml[]
 ----
 
 == Environment Variables
