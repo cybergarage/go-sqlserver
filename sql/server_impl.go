@@ -156,7 +156,6 @@ func (server *server) setupTLSConfig() error {
 
 // Start starts the SQL server.
 func (server *server) Start() error {
-
 	setupper := []func() error{
 		server.setupLogger,
 		server.applyConfig,

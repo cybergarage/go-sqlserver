@@ -18,7 +18,7 @@ import (
 	_ "embed"
 )
 
-//go:embed conf/go-sqlserver.yml
+//go:embed conf/go-sqlserver.yaml
 var defaultConfigString string
 
 func NewDefaultConfig() (Config, error) {

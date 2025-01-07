@@ -8,7 +8,7 @@ The configuration file is divided into sections, each represented as a YAML map.
 
 [options="yaml"]
 ----
-include::../sql/conf/go-sqlserver.yml[]
+include::../sql/conf/go-sqlserver.yaml[]
 ----
 
 === store.sqlite.memory
