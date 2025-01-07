@@ -82,8 +82,9 @@ run: install
 	${GOBIN}/${BINS_DEAMON_BIN} --debug
 
 image: test
-	docker image build -t${BINS_DOCKER_TAG} -t${BIN_SERVER_DOCKER_TAG_LATEST} .
-	docker push ${BIN_SERVER_DOCKER_TAG_LATEST}
+	docker image build -t${BINS_DOCKER_TAG} -t${BINS_DOCKER_TAG_LATEST} .
+	docker push ${BINS_DOCKER_TAG}
+	docker push ${BINS_DOCKER_TAG_LATEST}
 
 	docker image build -t ${BINS_DOCKER_TAG} .
 
