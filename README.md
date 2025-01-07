@@ -23,5 +23,20 @@ The `go-sqlserver` is currently implemented as an in-memory database using SQLit
 See the following guide to learn about how to get started.
 
 - [Quick Start](doc/quick-start.md)
-- [Configuring PullzeDB](doc/configuring.md)
+  - [Configuring PullzeDB](doc/configuring.md)
+- Secifications
+  - [Query Model](doc/query_model.md)
+  - [Data Model](doc/data_model.md)
 
+# Related Projects
+
+The `go-sqlserver` is being developed in collaboration with the following Cybergarage projects:
+
+- [go-sqlparser](https://github.com/cybergarage/go-sqlparser)
+- [go-mysql](https://github.com/cybergarage/go-mysql)
+- [go-postgresql](https://github.com/cybergarage/go-postgresql)
+- [go-logger](https://github.com/cybergarage/go-logger)
+- [go-sqltest](https://github.com/cybergarage/go-sqltest)
+- [go-tracing](https://github.com/cybergarage/go-tracing)
+- [go-authenticator](https://github.com/cybergarage/go-authenticator)
+- [go-sasl](https://github.com/cybergarage/go-sasl)
