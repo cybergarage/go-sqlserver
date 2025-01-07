@@ -156,20 +156,18 @@ func (server *server) setupTLSConfig() error {
 
 // Start starts the SQL server.
 func (server *server) Start() error {
-	if err := server.setupLogger(); err != nil {
-		return err
+
+	setupper := []func() error{
+		server.setupLogger,
+		server.applyConfig,
+		server.setupTLSConfig,
+		server.setupPrometheus,
 	}
 
-	log.Infof("%s %s started", ProductName, Version)
-
-	if err := server.applyConfig(); err != nil {
-		return err
-	}
-	if err := server.setupTLSConfig(); err != nil {
-		return err
-	}
-	if err := server.setupPrometheus(); err != nil {
-		return err
+	for _, setup := range setupper {
+		if err := setup(); err != nil {
+			return errors.Join(err, server.Stop())
+		}
 	}
 
 	type starter interface {
@@ -191,7 +189,7 @@ func (server *server) Start() error {
 
 	for _, s := range starters {
 		if err := s.Start(); err != nil {
-			return server.Stop()
+			return errors.Join(err, server.Stop())
 		}
 	}
 
