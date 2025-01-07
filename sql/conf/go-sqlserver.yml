@@ -5,6 +5,7 @@ tls:
   enabled: false
   key_file: key.pem
   cert_file: cert.pem
+  ca_files: [ca.pem]
 query:
   mysql:
     port: 3306
