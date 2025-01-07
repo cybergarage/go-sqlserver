@@ -1,10 +1,10 @@
 # Configuring go-sqlserver
 
-**go-sqlserver** is configured using a configuration file. The configuration file is a YAML file, and you can override the configuration by setting environment variables.
+**go-sqlserver** is configured using a YAML configuration file. You can override settings by defining environment variables.
 
 ## Configuration File (go-sqlserver.yaml)
 
-The configuration file is divided into sections. Each section is a YAML map. **go-sqlserver** will activate a default configuration if a configuration file is not specified or if there is no go-sqlserver.yaml in the local directory. The following is the default configuration file:
+The configuration file is divided into sections, each represented as a YAML map. If no configuration file is specified or `go-sqlserver.yaml` is missing from the local directory, **go-sqlserver** will activate the default configuration. Below is an example of the default configuration file:
 
     logger:
       enabled: true
@@ -13,6 +13,7 @@ The configuration file is divided into sections. Each section is a YAML map. **g
       enabled: false
       key_file: key.pem
       cert_file: cert.pem
+      ca_files: [ca.pem]
     query:
       mysql:
         port: 3306
@@ -26,8 +27,12 @@ The configuration file is divided into sections. Each section is a YAML map. **g
         enabled: true
         port: 9181
 
+### store.sqlite.memory
+
+By default, **go-sqlserver** uses an in-memory SQLite database. To switch to a file-based SQLite database, set the `store.sqlite.memory` option to `false`.
+
 ## Environment Variables
 
-You can override the configuration file location by setting the **go-sqlserver** environment variable. **go-sqlserver** assumes that the environment variable matches the following format: SQLSERVER + "\_" + the key name in ALL CAPS.
+The location of the configuration file can be overridden by setting an environment variable. **go-sqlserver** expects environment variables to follow the format: `GO_SQLSERVER_` + the key name in uppercase.
 
-For example, if the environment variable `SQLSERVER_LOGGING_ENABLED` is set, then **go-sqlserver** will override the `logging:enabled` setting.
+For example, setting the environment variable `GO_SQLSERVER_LOGGER_ENABLED` will override the `logging:enabled` configuration in the file.
