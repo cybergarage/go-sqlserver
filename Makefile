@@ -83,7 +83,6 @@ run: install
 
 image: test
 	docker image build -t${BINS_DOCKER_TAG} -t${BINS_DOCKER_TAG_LATEST} .
-	docker push ${BINS_DOCKER_TAG}
 	docker push ${BINS_DOCKER_TAG_LATEST}
 
 	docker image build -t ${BINS_DOCKER_TAG} .
