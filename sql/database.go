@@ -21,26 +21,65 @@ import (
 	_ "github.com/ncruces/go-sqlite3/embed"
 )
 
+const (
+	DatabaseDefaultFilename = ":memory:"
+	DatabaseFilenameExt     = "sqlite3"
+)
+
 // Database represents a destination or source database of query.
 type Database struct {
-	name string
-	db   *sql.DB
-	tx   *sql.Tx
+	name     string
+	filename string
+	db       *sql.DB
+	tx       *sql.Tx
 }
 
-// NewDatabaseWithName returns a new database with the specified string.
-func NewDatabaseWithName(name string) (*Database, error) {
+// DatabaseOption is a function that configures a database.
+type DatabaseOption func(*Database) error
+
+// WithDatabaseName returns a database option that sets the name.
+func WithDatabaseName(name string) DatabaseOption {
+	return func(db *Database) error {
+		db.name = name
+		return nil
+	}
+}
+
+// WithDatabaseFilename returns a database option that sets the filename.
+func WithDatabaseFilename(filename string) DatabaseOption {
+	return func(db *Database) error {
+		db.filename = filename
+		return nil
+	}
+}
+
+// NewDatabaseWith returns a new database with the specified string.
+func NewDatabaseWith(opt ...DatabaseOption) (*Database, error) {
 	var err error
 	db := &Database{
-		name: name,
-		db:   nil,
-		tx:   nil,
+		name:     "",
+		filename: DatabaseDefaultFilename,
+		db:       nil,
+		tx:       nil,
 	}
-	db.db, err = sql.Open("sqlite3", ":memory:")
+	if err := db.SetOptions(opt...); err != nil {
+		return nil, err
+	}
+	db.db, err = sql.Open("sqlite3", db.filename)
 	if err != nil {
 		return nil, err
 	}
 	return db, nil
+}
+
+// SetOptions sets the database options.
+func (db *Database) SetOptions(opts ...DatabaseOption) error {
+	for _, opt := range opts {
+		if err := opt(db); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // DB returns the database.

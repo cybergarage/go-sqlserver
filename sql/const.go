@@ -16,5 +16,5 @@ package sql
 
 const (
 	// ProductName is the product name.
-	ProductName = "sqlserver"
+	ProductName = "go-sqlserver"
 )

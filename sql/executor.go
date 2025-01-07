@@ -15,6 +15,8 @@
 package sql
 
 import (
+	"fmt"
+
 	"github.com/cybergarage/go-logger/log"
 	"github.com/cybergarage/go-mysql/mysql/errors"
 	"github.com/cybergarage/go-sqlparser/sql/net"
@@ -62,18 +64,24 @@ func (server *server) Use(conn net.Conn, stmt query.Use) error {
 // CreateDatabase should handle a CREATE database statement.
 func (server *server) CreateDatabase(conn net.Conn, stmt query.CreateDatabase) error {
 	log.Debugf("%v", stmt)
-
 	dbName := stmt.DatabaseName()
-
 	_, err := server.LookupDatabase(dbName)
 	if err == nil {
-		if stmt.IfNotExists() {
-			return nil
-		}
-		return newErrDatabaseExist(dbName)
+		return err
+	}
+	opts := []DatabaseOption{
+		WithDatabaseName(dbName),
+	}
+	ok, err := server.IsMemoryStoreEnabled()
+	if err != nil {
+		return err
+	}
+	if !ok {
+		filename := fmt.Sprintf("%s.%s", dbName, DatabaseFilenameExt)
+		opts = append(opts, WithDatabaseFilename(filename))
 	}
 
-	db, err := NewDatabaseWithName(dbName)
+	db, err := NewDatabaseWith(opts...)
 	if err != nil {
 		return err
 	}

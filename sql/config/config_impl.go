@@ -29,7 +29,8 @@ type viperConfig struct {
 // NewConfigWith creates a new configuration with the specified product name.
 func NewConfigWith(productName string) Config {
 	viper.SetConfigName(productName)
-	viper.SetEnvPrefix(strings.ToUpper(productName))
+	prefix := strings.ReplaceAll(productName, "-", "_")
+	viper.SetEnvPrefix(strings.ToUpper(prefix))
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 	viper.SetConfigType("yaml")
 	viper.AutomaticEnv()

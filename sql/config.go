@@ -54,6 +54,6 @@ type Config interface {
 	IsPrometheusEnabled() (bool, error)
 	// PrometheusPort returns the Prometheus port.
 	PrometheusPort() (int, error)
-	// IsStoreMemory returns true if the store is memory.
-	IsStoreMemory() (bool, error)
+	// IsMemoryStoreEnabled returns true if the store is memory.
+	IsMemoryStoreEnabled() (bool, error)
 }
