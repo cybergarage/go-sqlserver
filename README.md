@@ -23,7 +23,7 @@ The `go-sqlserver` is currently implemented as an in-memory database using SQLit
 See the following guide to learn about how to get started.
 
 - [Quick Start](doc/quick-start.md)
-  - [Configuring PullzeDB](doc/configuring.md)
+  - [Configuring go-sqlserver](doc/configuring.md)
 - Secifications
   - [Query Model](doc/query_model.md)
   - [Data Model](doc/data_model.md)
