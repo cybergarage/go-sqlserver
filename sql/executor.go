@@ -16,6 +16,7 @@ package sql
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/cybergarage/go-logger/log"
 	"github.com/cybergarage/go-mysql/mysql/errors"
@@ -130,7 +131,20 @@ func (server *server) AlterTable(conn net.Conn, stmt query.AlterTable) error {
 	if err != nil {
 		return err
 	}
-	_, err = db.Exec(stmt.String())
+
+	tblName := stmt.TableName()
+
+	if idx, ok := stmt.AddIndex(); ok {
+		columns := strings.Join(idx.Columns().ColumnNames(), ",")
+		query := fmt.Sprintf("CREATE INDEX %s ON %s (%s)", idx.Name(), tblName, columns)
+		_, err = db.Exec(query)
+	} else if idx, ok := stmt.DropIndex(); ok {
+		query := fmt.Sprintf("DROP INDEX %s ON %s", idx.Name(), tblName)
+		_, err = db.Exec(query)
+	} else {
+		_, err = db.Exec(stmt.String())
+	}
+
 	return err
 }
 
