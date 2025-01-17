@@ -31,6 +31,8 @@ type Manager interface {
 	SetCommonNameRegexps(regexps ...string) error
 	// SetCredential sets a credential.
 	SetCredentials(creds ...auth.Credential) error
+	// LookupCredential looks up a credential.
+	LookupCredential(q auth.Query) (Credential, bool, error)
 	// VerifyCredential verifies the client credential.
 	VerifyCredential(conn Conn, q Query) (bool, error)
 	// VerifyCertificate verifies the client certificate.
