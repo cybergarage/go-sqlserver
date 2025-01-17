@@ -9,7 +9,7 @@ tls:
 auth:
   plain:
     -
-      enabled: true
+      enabled: false
       username: admin
       password: password
 query:
