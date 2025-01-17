@@ -16,12 +16,28 @@ package auth
 
 import (
 	"github.com/cybergarage/go-authenticator/auth"
+	"github.com/cybergarage/go-authenticator/auth/tls"
 )
 
-type Manager struct {
-	auth.Manager
-}
+// Conn represents a connection.
+type Conn = auth.Conn
 
-func NewManager() Manager {
-	return Manager{auth.NewManager()}
+// CredentialStore represents a credential store.
+type CredentialStore = auth.CredentialStore
+
+// Query represents a query.
+type Query = auth.Query
+
+// CertificateAuthenticator represents a certificate authenticator.
+type CertificateAuthenticator = auth.CertificateAuthenticator
+
+type Manager interface {
+	// SetCredentialStore sets the credential store.
+	SetCredentialStore(store CredentialStore)
+	// VerifyCredential verifies the client credential.
+	VerifyCredential(conn Conn, q Query) (bool, error)
+	// SetCertificateAuthenticator sets the certificate authenticator.
+	SetCertificateAuthenticator(auth CertificateAuthenticator)
+	// VerifyCertificate verifies the client certificate.
+	VerifyCertificate(conn tls.Conn) (bool, error)
 }
