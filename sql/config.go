@@ -16,6 +16,8 @@ package sql
 
 import (
 	"crypto/tls"
+
+	"github.com/cybergarage/go-sqlserver/sql/auth"
 )
 
 const (
@@ -34,6 +36,7 @@ const (
 	ConfigStore      = "store"
 	ConfigSQLite     = "sqlite"
 	ConfigMemory     = "memory"
+	ConfigPlain      = "plain"
 )
 
 // Config represents a configuration interface for PuzzleDB.
@@ -56,4 +59,6 @@ type Config interface {
 	PrometheusPort() (int, error)
 	// IsMemoryStoreEnabled returns true if the store is memory.
 	IsMemoryStoreEnabled() (bool, error)
+	// PlainCredentials returns plain configurations.
+	PlainCredentials() ([]auth.PlainConfig, error)
 }

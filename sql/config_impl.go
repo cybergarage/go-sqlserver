@@ -21,6 +21,7 @@ import (
 	_ "embed"
 	"os"
 
+	"github.com/cybergarage/go-sqlserver/sql/auth"
 	"github.com/cybergarage/go-sqlserver/sql/config"
 	"github.com/spf13/viper"
 )
@@ -145,4 +146,13 @@ func (config *configImpl) PrometheusPort() (int, error) {
 // IsMemoryStoreEnabled returns true if the store is memory.
 func (config *configImpl) IsMemoryStoreEnabled() (bool, error) {
 	return config.LookupConfigBool(ConfigStore, ConfigSQLite, ConfigMemory)
+}
+
+// PlainCredentials returns plain configurations.
+func (config *configImpl) PlainCredentials() ([]auth.PlainConfig, error) {
+	return auth.NewPlainConfigFrom(
+		config,
+		ConfigAuth,
+		ConfigPlain,
+	)
 }
