@@ -65,11 +65,16 @@ func (server *server) Use(conn net.Conn, stmt query.Use) error {
 // CreateDatabase should handle a CREATE database statement.
 func (server *server) CreateDatabase(conn net.Conn, stmt query.CreateDatabase) error {
 	log.Debugf("%v", stmt)
+
 	dbName := stmt.DatabaseName()
 	_, err := server.LookupDatabase(dbName)
 	if err == nil {
-		return err
+		if stmt.IfNotExists() {
+			return nil
+		}
+		return newErrDatabaseExist(dbName)
 	}
+
 	opts := []DatabaseOption{
 		WithDatabaseName(dbName),
 	}
