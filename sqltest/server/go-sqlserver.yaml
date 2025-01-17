@@ -1,0 +1,26 @@
+logger:
+  enabled: true
+  level: info
+tls:
+  enabled: true
+  key_file: ../certs/key.pem
+  cert_file: ../certs/cert.pem
+  ca_files: [../certs/ca.pem]
+auth:
+  plain:
+    -
+      enabled: true
+      username: admin
+      password: password
+query:
+  mysql:
+    port: 3306
+  postgresql:
+    port: 5432
+store:
+  sqlite:
+    memory: true
+metrics:
+  prometheus:
+    enabled: true
+    port: 9181
