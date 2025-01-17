@@ -20,12 +20,14 @@ import (
 	"github.com/cybergarage/go-logger/log"
 	"github.com/cybergarage/go-mysql/mysql"
 	"github.com/cybergarage/go-postgresql/postgresql"
+	"github.com/cybergarage/go-sqlserver/sql/auth"
 	"github.com/cybergarage/go-tracing/tracer"
 )
 
 // Server represents a SQL server.
 type server struct {
 	Config
+	auth.Manager
 	*Databases
 	myServer   mysql.Server
 	pgServer   postgresql.Server
@@ -41,6 +43,7 @@ func NewServer() Server {
 
 	server := &server{
 		Config:     conf,
+		Manager:    auth.NewManager(),
 		Databases:  NewDatabases(),
 		myServer:   mysql.NewServer(),
 		pgServer:   postgresql.NewServer(),

@@ -22,22 +22,17 @@ import (
 // Conn represents a connection.
 type Conn = auth.Conn
 
-// CredentialStore represents a credential store.
-type CredentialStore = auth.CredentialStore
-
 // Query represents a query.
 type Query = auth.Query
 
-// CertificateAuthenticator represents a certificate authenticator.
-type CertificateAuthenticator = auth.CertificateAuthenticator
-
+// Manager represents an authentication manager.
 type Manager interface {
-	// SetCredentialStore sets the credential store.
-	SetCredentialStore(store CredentialStore)
+	// SetCommonNameRegexps sets common name regular expressions.
+	SetCommonNameRegexps(regexps ...string) error
+	// SetCredential sets a credential.
+	SetCredentials(creds ...auth.Credential) error
 	// VerifyCredential verifies the client credential.
 	VerifyCredential(conn Conn, q Query) (bool, error)
-	// SetCertificateAuthenticator sets the certificate authenticator.
-	SetCertificateAuthenticator(auth CertificateAuthenticator)
 	// VerifyCertificate verifies the client certificate.
 	VerifyCertificate(conn tls.Conn) (bool, error)
 }
