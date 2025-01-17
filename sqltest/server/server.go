@@ -15,8 +15,13 @@
 package server
 
 import (
+	_ "embed"
+
 	"github.com/cybergarage/go-sqlserver/sql"
 )
+
+//go:embed go-sqlserver.yaml
+var configData string
 
 // Server represents a test server.
 type Server struct {
@@ -27,6 +32,10 @@ type Server struct {
 func NewServer() *Server {
 	s := &Server{
 		Server: sql.NewServer(),
+	}
+	config, err := sql.NewConfigWithString(configData)
+	if err == nil {
+		s.SetConfig(config)
 	}
 	return s
 }
