@@ -87,7 +87,7 @@ func (server *server) PostgreSQLServer() postgresql.Server {
 	return server.pgServer
 }
 
-func (server *server) applyConfig() error {
+func (server *server) setupPortConfig() error {
 	port, err := server.MySQLPort()
 	if err != nil {
 		return err
@@ -157,12 +157,43 @@ func (server *server) setupTLSConfig() error {
 	return nil
 }
 
+func (server *server) setupCredentialConfig() error {
+	plainConfigs, err := server.PlainCredentials()
+	if err != nil {
+		return err
+	}
+
+	creds := []auth.Credential{}
+	for _, plainConfig := range plainConfigs {
+		if !plainConfig.Enabled {
+			continue
+		}
+		cred := auth.NewCredential(
+			auth.WithCredentialUsername(plainConfig.Username),
+			auth.WithCredentialPassword(plainConfig.Password),
+		)
+		creds = append(creds, cred)
+	}
+
+	if 0 < len(creds) {
+		server.SetCredentials(creds...)
+		server.myServer.SetCredentialStore(server)
+		server.pgServer.SetCredentialStore(server)
+	} else {
+		server.myServer.SetCredentialStore(nil)
+		server.pgServer.SetCredentialStore(nil)
+	}
+
+	return err
+}
+
 // Start starts the SQL server.
 func (server *server) Start() error {
 	setupper := []func() error{
 		server.setupLogger,
-		server.applyConfig,
+		server.setupPortConfig,
 		server.setupTLSConfig,
+		server.setupCredentialConfig,
 		server.setupPrometheus,
 	}
 
