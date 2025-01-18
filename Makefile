@@ -86,8 +86,12 @@ image: test
 	docker image build -t${BINS_DOCKER_TAG_LATEST} .
 	docker push ${BINS_DOCKER_TAG_LATEST}
 
+<<<<<<< HEAD
 image-push: image
 	docker image build -t${BINS_DOCKER_TAG}
+=======
+image-push: test
+>>>>>>> a450963 (Update Makefile)
 	docker push ${BINS_DOCKER_TAG}
 
 rund: image
