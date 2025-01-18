@@ -7,9 +7,9 @@ tls:
   cert_file: ../certs/cert.pem
   ca_files: [../certs/root_cert.pem]
 auth:
+  enabled: false
   plain:
     -
-      enabled: false
       username: testuser
       password: testpassword
 query:
