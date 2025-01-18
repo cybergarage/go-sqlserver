@@ -141,6 +141,9 @@ func (server *server) setupPrometheus() error {
 }
 
 func (server *server) setupTLSConfig() error {
+	server.myServer.SetTLSConfig(nil)
+	server.pgServer.SetTLSConfig(nil)
+
 	ok, err := server.IsTLSEnabled()
 	if err != nil {
 		return err
@@ -148,12 +151,14 @@ func (server *server) setupTLSConfig() error {
 	if !ok {
 		return nil
 	}
+
 	tlsConfig, err := server.TLSConfig()
 	if err != nil {
 		return err
 	}
 	server.myServer.SetTLSConfig(tlsConfig)
 	server.pgServer.SetTLSConfig(tlsConfig)
+
 	return nil
 }
 
