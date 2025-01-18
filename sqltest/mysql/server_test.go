@@ -31,6 +31,10 @@ const (
 func TestServer(t *testing.T) {
 	log.SetStdoutDebugEnbled(true)
 
+	defer func() {
+		t.Setenv("GO_SQLSERVER_AUTH_ENABLED", "false")
+	}()
+
 	const (
 		username = "testuser"
 		password = "testpassword"
@@ -63,6 +67,8 @@ func TestServer(t *testing.T) {
 
 		if setting.isPasswordEnabled {
 			t.Setenv("GO_SQLSERVER_AUTH_ENABLED", "true")
+		} else {
+			t.Setenv("GO_SQLSERVER_AUTH_ENABLED", "false")
 		}
 
 		server := server.NewServer()
