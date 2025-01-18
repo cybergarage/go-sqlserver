@@ -10,8 +10,8 @@ auth:
   plain:
     -
       enabled: false
-      username: admin
-      password: password
+      username: testuser
+      password: testpassword
 query:
   mysql:
     port: 3306
