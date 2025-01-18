@@ -3,10 +3,10 @@ module github.com/cybergarage/go-sqlserver
 go 1.23
 
 require (
-	github.com/cybergarage/go-authenticator v1.0.4-0.20250117134344-237f11cccedd
+	github.com/cybergarage/go-authenticator v1.0.4
 	github.com/cybergarage/go-logger v1.3.8
-	github.com/cybergarage/go-mysql v1.2.1-0.20250118064636-8de8b4032fda
-	github.com/cybergarage/go-postgresql v1.6.3-0.20250117031116-997b2e4e05e1
+	github.com/cybergarage/go-mysql v1.2.1
+	github.com/cybergarage/go-postgresql v1.6.3
 	github.com/cybergarage/go-sqlparser v1.4.2
 	github.com/cybergarage/go-sqltest v1.4.3
 	github.com/cybergarage/go-tracing v1.1.4
@@ -23,7 +23,7 @@ require (
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.5 // indirect
 	github.com/cybergarage/go-safecast v1.2.5 // indirect
-	github.com/cybergarage/go-sasl v1.2.5-0.20250117134242-297ede4735ca // indirect
+	github.com/cybergarage/go-sasl v1.2.5 // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
 	github.com/go-sql-driver/mysql v1.8.1 // indirect
 	github.com/google/uuid v1.6.0 // indirect
