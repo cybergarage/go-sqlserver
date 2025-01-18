@@ -6,7 +6,7 @@ This chapter shows you how to get started with **go-sqlserver** quickly: you can
 
 ### Using Docker image
 
-**go-sqlserver** Docker image is the easiest way; if you do not have Docker installed, go there and install it first. To start the standalone server, run the following command:
+**go-sqlserver** [Docker image](https://hub.docker.com/r/cybergarage/go-sqlserver) is the easiest way; if you do not have Docker installed, go there and install it first. To start the standalone server, run the following command:
 
 ```
 docker run -it --rm \
