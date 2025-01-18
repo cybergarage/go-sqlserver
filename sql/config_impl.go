@@ -126,9 +126,15 @@ func (config *configImpl) TLSConfig() (*tls.Config, error) {
 	}
 
 	tlsConf := NewTLSConf()
-	tlsConf.SetServerCertFile(tlsConfig.CertFile)
-	tlsConf.SetServerKeyFile(tlsConfig.KeyFile)
-	tlsConf.SetRootCertFiles(tlsConfig.CAFiles...)
+	if err := tlsConf.SetServerCertFile(tlsConfig.CertFile); err != nil {
+		return nil, err
+	}
+	if err := tlsConf.SetServerKeyFile(tlsConfig.KeyFile); err != nil {
+		return nil, err
+	}
+	if err := tlsConf.SetRootCertFiles(tlsConfig.CAFiles...); err != nil {
+		return nil, err
+	}
 
 	return tlsConf.TLSConfig()
 }
