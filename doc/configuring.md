@@ -14,6 +14,13 @@ The configuration file is divided into sections, each represented as a YAML map.
       key_file: key.pem
       cert_file: cert.pem
       ca_files: [ca.pem]
+
+    auth:
+      plain:
+        -
+          enabled: false
+          username: admin
+          password: password
     query:
       mysql:
         port: 3306
