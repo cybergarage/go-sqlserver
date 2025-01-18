@@ -1,5 +1,7 @@
 # DDL
 
+(Being prepared)
+
 <table>
 <colgroup>
 <col style="width: 20%" />

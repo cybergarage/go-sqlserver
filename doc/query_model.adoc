@@ -1,5 +1,7 @@
 = DDL
 
+(Being prepared)
+
 [format="csv", options="header, autowidth"]
 |====
 include::data/ddl_query.csv[]

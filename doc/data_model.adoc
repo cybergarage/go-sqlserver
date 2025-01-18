@@ -1,5 +1,7 @@
 = Data Model
 
+(Being prepared)
+
 [format="csv", options="header, autowidth"]
 |====
 include::data/data_type.csv[]
