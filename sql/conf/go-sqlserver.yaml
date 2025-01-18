@@ -6,7 +6,6 @@ tls:
   key_file: key.pem
   cert_file: cert.pem
   ca_files: [ca.pem]
-
 auth:
   enabled: false
   plain:
