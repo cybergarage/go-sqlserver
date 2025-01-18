@@ -61,6 +61,10 @@ func TestServer(t *testing.T) {
 	for _, setting := range settings {
 		t.Logf("TLS: %v, Password: %v", setting.isTLSEnabled, setting.isPasswordEnabled)
 
+		if setting.isPasswordEnabled {
+			t.Setenv("GO_SQLSERVER_AUTH_ENABLED", "true")
+		}
+
 		server := server.NewServer()
 
 		err := server.Start()
