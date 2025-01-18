@@ -59,6 +59,8 @@ type Config interface {
 	PrometheusPort() (int, error)
 	// IsMemoryStoreEnabled returns true if the store is memory.
 	IsMemoryStoreEnabled() (bool, error)
+	// IsAuthEnabled returns true if the authentication is enabled.
+	IsAuthEnabled() (bool, error)
 	// PlainCredentials returns plain configurations.
 	PlainCredentials() ([]auth.PlainConfig, error)
 }

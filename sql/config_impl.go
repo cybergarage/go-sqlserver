@@ -154,6 +154,11 @@ func (config *configImpl) IsMemoryStoreEnabled() (bool, error) {
 	return config.LookupConfigBool(ConfigStore, ConfigSQLite, ConfigMemory)
 }
 
+// IsAuthEnabled returns true if the authentication is enabled.
+func (config *configImpl) IsAuthEnabled() (bool, error) {
+	return config.LookupConfigBool(ConfigAuth, ConfigEnabled)
+}
+
 // PlainCredentials returns plain configurations.
 func (config *configImpl) PlainCredentials() ([]auth.PlainConfig, error) {
 	return auth.NewPlainConfigFrom(
