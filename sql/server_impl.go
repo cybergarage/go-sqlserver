@@ -87,7 +87,7 @@ func (server *server) PostgreSQLServer() postgresql.Server {
 	return server.pgServer
 }
 
-func (server *server) setupPortConfig() error {
+func (server *server) applyPortConfig() error {
 	port, err := server.MySQLPort()
 	if err != nil {
 		return err
@@ -124,7 +124,7 @@ func (server *server) setupLogger() error {
 	return nil
 }
 
-func (server *server) setupPrometheus() error {
+func (server *server) applyPrometheusConfig() error {
 	ok, err := server.IsPrometheusEnabled()
 	if err != nil {
 		return err
@@ -140,7 +140,7 @@ func (server *server) setupPrometheus() error {
 	return nil
 }
 
-func (server *server) setupTLSConfig() error {
+func (server *server) applyTLSConfig() error {
 	server.myServer.SetTLSConfig(nil)
 	server.pgServer.SetTLSConfig(nil)
 
@@ -162,7 +162,7 @@ func (server *server) setupTLSConfig() error {
 	return nil
 }
 
-func (server *server) setupCredentialConfig() error {
+func (server *server) applyCredentialConfig() error {
 	server.myServer.SetCredentialStore(nil)
 	server.pgServer.SetCredentialStore(nil)
 
@@ -201,10 +201,10 @@ func (server *server) setupCredentialConfig() error {
 func (server *server) Start() error {
 	setupper := []func() error{
 		server.setupLogger,
-		server.setupPortConfig,
-		server.setupTLSConfig,
-		server.setupCredentialConfig,
-		server.setupPrometheus,
+		server.applyPortConfig,
+		server.applyTLSConfig,
+		server.applyCredentialConfig,
+		server.applyPrometheusConfig,
 	}
 
 	for _, setup := range setupper {
