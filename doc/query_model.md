@@ -1,6 +1,8 @@
-# DDL
+# Query Model
 
 (Being prepared)
+
+## DDL
 
 <table>
 <colgroup>
@@ -72,7 +74,7 @@
 </tbody>
 </table>
 
-# DML
+## DML
 
 <table>
 <colgroup>

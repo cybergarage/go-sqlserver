@@ -1,13 +1,16 @@
-= DDL
+= Query Model
 
 (Being prepared)
+
+== DDL
+
 
 [format="csv", options="header, autowidth"]
 |====
 include::data/ddl_query.csv[]
 |====
 
-= DML
+== DML
 
 [format="csv", options="header, autowidth"]
 |====
