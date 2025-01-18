@@ -163,6 +163,17 @@ func (server *server) setupTLSConfig() error {
 }
 
 func (server *server) setupCredentialConfig() error {
+	server.myServer.SetCredentialStore(nil)
+	server.pgServer.SetCredentialStore(nil)
+
+	ok, err := server.IsAuthEnabled()
+	if err != nil {
+		return err
+	}
+	if !ok {
+		return nil
+	}
+
 	plainConfigs, err := server.PlainCredentials()
 	if err != nil {
 		return err
@@ -170,9 +181,6 @@ func (server *server) setupCredentialConfig() error {
 
 	creds := []auth.Credential{}
 	for _, plainConfig := range plainConfigs {
-		if !plainConfig.Enabled {
-			continue
-		}
 		cred := auth.NewCredential(
 			auth.WithCredentialUsername(plainConfig.Username),
 			auth.WithCredentialPassword(plainConfig.Password),
@@ -184,9 +192,6 @@ func (server *server) setupCredentialConfig() error {
 		server.SetCredentials(creds...)
 		server.myServer.SetCredentialStore(server)
 		server.pgServer.SetCredentialStore(server)
-	} else {
-		server.myServer.SetCredentialStore(nil)
-		server.pgServer.SetCredentialStore(nil)
 	}
 
 	return err
