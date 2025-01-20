@@ -1,9 +1,8 @@
 = Query Model
 
-(Being prepared)
+**go-sqlserver** uses a SQLite database to execute queries. The following table shows the correspondence between the queries supported by **go-sqlserver** and their equivalents in SQL-92, PostgreSQL, and MySQL.
 
 == DDL
-
 
 [format="csv", options="header, autowidth"]
 |====
@@ -17,5 +16,14 @@ include::data/ddl_query.csv[]
 include::data/dml_query.csv[]
 |====
 
-
 == References
+
+
+* https://en.wikipedia.org/wiki/SQL-92[SQL-92 - Wikipedia]
+** https://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt[The SQL-92 standard]
+* https://dev.mysql.com[MySQL]
+** https://dev.mysql.com/doc/refman/8.0/en/sql-statements.html[SQL Statements]
+* https://www.postgresql.org[PostgreSQL]
+** https://www.postgresql.org/docs/current/sql.html[The SQL Language]
+* https://sqlite.org[SQLite]
+** https://www.sqlite.org/lang.html[SQL As Understood By SQLite]

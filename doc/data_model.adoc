@@ -11,9 +11,9 @@ include::data/data_type.csv[]
 
 * https://en.wikipedia.org/wiki/SQL-92[SQL-92 - Wikipedia]
 ** https://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt[The SQL-92 standard]
-* MySQL[https://dev.mysql.com]
+* https://dev.mysql.com[MySQL]
 ** https://dev.mysql.com/doc/refman/8.0/en/data-types.html[Data Types]
-* PostgreSQL[https://www.postgresql.org]
+* https://www.postgresql.org[PostgreSQL]
 ** https://www.postgresql.org/docs/current/datatype.html[Data Types]
-* SQLite
+* https://sqlite.org[SQLite]
 ** https://sqlite.org/datatype3.html[Datatypes In SQLite]
