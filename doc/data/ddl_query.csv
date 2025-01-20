@@ -1,8 +1,8 @@
-PostgreSQL,MySQL,SQL92,go-sqlserver (SQLite)
-CREATE DATABASE db_name,"CREATE DATABASE db_name",Not Supported,"Not Supported (uses file-based storage)"
+SQL92,PostgreSQL,MySQL,go-sqlserver (SQLite)
+Not Supported,CREATE DATABASE db_name,"CREATE DATABASE db_name","Not Supported (uses file-based storage)"
 "CREATE TABLE table_name (col_name data_type, ...)","CREATE TABLE table_name (col_name data_type, ...)","CREATE TABLE table_name (col_name data_type, ...)","CREATE TABLE table_name (col_name data_type, ...)"
-CREATE INDEX idx_name ON table_name (col_name),"CREATE INDEX idx_name ON table_name (col_name)",CREATE INDEX idx_name ON table_name (col_name),"CREATE INDEX idx_name ON table_name (col_name)"
-ALTER TABLE table_name ADD COLUMN col_name data_type,"ALTER TABLE table_name ADD COLUMN col_name data_type",ALTER TABLE table_name ADD COLUMN col_name data_type,"ALTER TABLE table_name ADD COLUMN col_name data_type"
-DROP DATABASE db_name,"DROP DATABASE db_name",Not Supported,"Not Supported (uses file-based storage)"
-DROP TABLE table_name,"DROP TABLE table_name",DROP TABLE table_name,"DROP TABLE table_name"
-DROP INDEX idx_name,"DROP INDEX idx_name",DROP INDEX idx_name,"DROP INDEX idx_name"
+CREATE INDEX idx_name ON table_name (col_name),CREATE INDEX idx_name ON table_name (col_name),"CREATE INDEX idx_name ON table_name (col_name)","CREATE INDEX idx_name ON table_name (col_name)"
+ALTER TABLE table_name ADD COLUMN col_name data_type,ALTER TABLE table_name ADD COLUMN col_name data_type,"ALTER TABLE table_name ADD COLUMN col_name data_type","ALTER TABLE table_name ADD COLUMN col_name data_type"
+Not Supported,DROP DATABASE db_name,"DROP DATABASE db_name","Not Supported (uses file-based storage)"
+DROP TABLE table_name,DROP TABLE table_name,"DROP TABLE table_name","DROP TABLE table_name"
+DROP INDEX idx_name,DROP INDEX idx_name,"DROP INDEX idx_name","DROP INDEX idx_name"
