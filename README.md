@@ -25,8 +25,8 @@ See the following guide to learn about how to get started.
 - [Quick Start](doc/quick-start.md) [![Docker Image Version](https://img.shields.io/docker/v/cybergarage/go-sqlserver)](https://hub.docker.com/repository/docker/cybergarage/go-sqlserver/)
   - [Configuring go-sqlserver](doc/configuring.md)
 - Secifications
-  - [Query Model](doc/query_model.md)
   - [Data Model](doc/data_model.md)
+  - [Query Model](doc/query_model.md)
 
 # Related Projects
 
