@@ -1,6 +1,6 @@
 = Data Model
 
-(Being prepared)
+**go-sqlserver** uses a SQLite database to store data. The SQLite data model supports only basic data types, the other data types are converted to the supported data types. The following table shows the correspondence between the data types supported by **go-sqlserver** and their equivalents in SQL-92, PostgreSQL, and MySQL.
 
 [format="csv", options="header, autowidth"]
 |====
