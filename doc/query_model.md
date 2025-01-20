@@ -13,17 +13,17 @@
 </colgroup>
 <thead>
 <tr>
+<th style="text-align: left;">SQL92</th>
 <th style="text-align: left;">PostgreSQL</th>
 <th style="text-align: left;">MySQL</th>
-<th style="text-align: left;">SQL92</th>
 <th style="text-align: left;">go-sqlserver (SQLite)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><p>CREATE DATABASE db_name</p></td>
-<td style="text-align: left;"><p>CREATE DATABASE db_name</p></td>
 <td style="text-align: left;"><p>Not Supported</p></td>
+<td style="text-align: left;"><p>CREATE DATABASE db_name</p></td>
+<td style="text-align: left;"><p>CREATE DATABASE db_name</p></td>
 <td style="text-align: left;"><p>Not Supported (uses file-based storage)</p></td>
 </tr>
 <tr>
@@ -45,9 +45,9 @@
 <td style="text-align: left;"><p>ALTER TABLE table_name ADD COLUMN col_name data_type</p></td>
 </tr>
 <tr>
-<td style="text-align: left;"><p>DROP DATABASE db_name</p></td>
-<td style="text-align: left;"><p>DROP DATABASE db_name</p></td>
 <td style="text-align: left;"><p>Not Supported</p></td>
+<td style="text-align: left;"><p>DROP DATABASE db_name</p></td>
+<td style="text-align: left;"><p>DROP DATABASE db_name</p></td>
 <td style="text-align: left;"><p>Not Supported (uses file-based storage)</p></td>
 </tr>
 <tr>
@@ -78,9 +78,9 @@
 </colgroup>
 <thead>
 <tr>
+<th style="text-align: left;">SQL92</th>
 <th style="text-align: left;">PostgreSQL</th>
 <th style="text-align: left;">MySQL</th>
-<th style="text-align: left;">SQL92</th>
 <th style="text-align: left;">go-sqlserver (SQLite)</th>
 <th style="text-align: left;"></th>
 <th style="text-align: left;">SQLite</th>
@@ -88,49 +88,49 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><p>SELECT</p></td>
-<td style="text-align: left;"><p>SELECT</p></td>
 <td style="text-align: left;"><p>SELECT col_name FROM table_name WHERE condition;</p></td>
 <td style="text-align: left;"><p>SELECT</p></td>
+<td style="text-align: left;"><p>SELECT</p></td>
+<td style="text-align: left;"><p>SELECT</p></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"><p>Same</p></td>
 </tr>
 <tr>
-<td style="text-align: left;"><p>INSERT</p></td>
-<td style="text-align: left;"><p>INSERT</p></td>
 <td style="text-align: left;"><p>INSERT INTO table_name (col1, col2) VALUES (val1, val2);</p></td>
 <td style="text-align: left;"><p>INSERT</p></td>
+<td style="text-align: left;"><p>INSERT</p></td>
+<td style="text-align: left;"><p>INSERT</p></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"><p>Same</p></td>
 </tr>
 <tr>
-<td style="text-align: left;"><p>UPDATE</p></td>
-<td style="text-align: left;"><p>UPDATE</p></td>
 <td style="text-align: left;"><p>UPDATE table_name SET col_name = value WHERE condition;</p></td>
 <td style="text-align: left;"><p>UPDATE</p></td>
+<td style="text-align: left;"><p>UPDATE</p></td>
+<td style="text-align: left;"><p>UPDATE</p></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"><p>Same</p></td>
 </tr>
 <tr>
-<td style="text-align: left;"><p>DELETE</p></td>
-<td style="text-align: left;"><p>DELETE</p></td>
 <td style="text-align: left;"><p>DELETE FROM table_name WHERE condition;</p></td>
 <td style="text-align: left;"><p>DELETE</p></td>
+<td style="text-align: left;"><p>DELETE</p></td>
+<td style="text-align: left;"><p>DELETE</p></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"><p>Same</p></td>
 </tr>
 <tr>
-<td style="text-align: left;"><p>SELECT …​ LIMIT n;</p></td>
-<td style="text-align: left;"><p>SELECT …​ LIMIT n;</p></td>
 <td style="text-align: left;"><p>Not Supported</p></td>
+<td style="text-align: left;"><p>SELECT …​ LIMIT n;</p></td>
+<td style="text-align: left;"><p>SELECT …​ LIMIT n;</p></td>
 <td style="text-align: left;"><p>LIMIT</p></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"><p>SELECT …​ LIMIT n;</p></td>
 </tr>
 <tr>
-<td style="text-align: left;"><p>Not Supported</p></td>
-<td style="text-align: left;"><p>Not Supported</p></td>
 <td style="text-align: left;"><p>MERGE INTO table_name USING …​ ON condition WHEN MATCHED THEN …​;</p></td>
+<td style="text-align: left;"><p>Not Supported</p></td>
+<td style="text-align: left;"><p>Not Supported</p></td>
 <td style="text-align: left;"><p>MERGE</p></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"><p>Not Supported</p></td>
