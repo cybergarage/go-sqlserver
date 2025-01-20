@@ -1,7 +1,7 @@
-Command,SQL92,MySQL,PostgreSQL,SQLite
-SELECT,"SELECT col_name FROM table_name WHERE condition;","Same","Same","Same"
-INSERT,"INSERT INTO table_name (col1, col2) VALUES (val1, val2);","Same","Same","Same"
-UPDATE,"UPDATE table_name SET col_name = value WHERE condition;","Same","Same","Same"
-DELETE,"DELETE FROM table_name WHERE condition;","Same","Same","Same"
-LIMIT,"Not Supported","SELECT ... LIMIT n;","SELECT ... LIMIT n;","SELECT ... LIMIT n;"
-MERGE,"MERGE INTO table_name USING ... ON condition WHEN MATCHED THEN ...;","Not Supported","Not Supported","Not Supported"
+PostgreSQL,MySQL,SQL92,go-sqlserver (SQLite),,SQLite
+SELECT,SELECT,"SELECT col_name FROM table_name WHERE condition;",SELECT,,"Same"
+INSERT,INSERT,"INSERT INTO table_name (col1, col2) VALUES (val1, val2);",INSERT,,"Same"
+UPDATE,UPDATE,"UPDATE table_name SET col_name = value WHERE condition;",UPDATE,,"Same"
+DELETE,DELETE,"DELETE FROM table_name WHERE condition;",DELETE,,"Same"
+SELECT ... LIMIT n;,SELECT ... LIMIT n;,"Not Supported",LIMIT,,"SELECT ... LIMIT n;"
+Not Supported,Not Supported,"MERGE INTO table_name USING ... ON condition WHEN MATCHED THEN ...;",MERGE,,"Not Supported"
