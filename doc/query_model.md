@@ -67,23 +67,21 @@
 
 ## DML
 
-<table style="width:100%;">
+<table>
 <colgroup>
-<col style="width: 16%" />
-<col style="width: 16%" />
-<col style="width: 16%" />
-<col style="width: 16%" />
-<col style="width: 16%" />
-<col style="width: 16%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
 </colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">SQL92</th>
-<th style="text-align: left;">PostgreSQL</th>
-<th style="text-align: left;">MySQL</th>
-<th style="text-align: left;">go-sqlserver (SQLite)</th>
-<th style="text-align: left;"></th>
-<th style="text-align: left;">SQLite</th>
+<th style="text-align: left;">MERGE INTO table_name USING …​ ON condition WHEN MATCHED THEN …​;</th>
+<th style="text-align: left;">Not Supported</th>
+<th style="text-align: left;">Not Supported</th>
+<th style="text-align: left;">MERGE</th>
+<th style="text-align: left;">Not Supported</th>
 </tr>
 </thead>
 <tbody>
@@ -92,7 +90,6 @@
 <td style="text-align: left;"><p>SELECT</p></td>
 <td style="text-align: left;"><p>SELECT</p></td>
 <td style="text-align: left;"><p>SELECT</p></td>
-<td style="text-align: left;"></td>
 <td style="text-align: left;"><p>Same</p></td>
 </tr>
 <tr>
@@ -100,7 +97,6 @@
 <td style="text-align: left;"><p>INSERT</p></td>
 <td style="text-align: left;"><p>INSERT</p></td>
 <td style="text-align: left;"><p>INSERT</p></td>
-<td style="text-align: left;"></td>
 <td style="text-align: left;"><p>Same</p></td>
 </tr>
 <tr>
@@ -108,7 +104,6 @@
 <td style="text-align: left;"><p>UPDATE</p></td>
 <td style="text-align: left;"><p>UPDATE</p></td>
 <td style="text-align: left;"><p>UPDATE</p></td>
-<td style="text-align: left;"></td>
 <td style="text-align: left;"><p>Same</p></td>
 </tr>
 <tr>
@@ -116,7 +111,6 @@
 <td style="text-align: left;"><p>DELETE</p></td>
 <td style="text-align: left;"><p>DELETE</p></td>
 <td style="text-align: left;"><p>DELETE</p></td>
-<td style="text-align: left;"></td>
 <td style="text-align: left;"><p>Same</p></td>
 </tr>
 <tr>
@@ -124,16 +118,14 @@
 <td style="text-align: left;"><p>SELECT …​ LIMIT n;</p></td>
 <td style="text-align: left;"><p>SELECT …​ LIMIT n;</p></td>
 <td style="text-align: left;"><p>LIMIT</p></td>
-<td style="text-align: left;"></td>
 <td style="text-align: left;"><p>SELECT …​ LIMIT n;</p></td>
 </tr>
 <tr>
-<td style="text-align: left;"><p>MERGE INTO table_name USING …​ ON condition WHEN MATCHED THEN …​;</p></td>
-<td style="text-align: left;"><p>Not Supported</p></td>
-<td style="text-align: left;"><p>Not Supported</p></td>
-<td style="text-align: left;"><p>MERGE</p></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"><p>Not Supported</p></td>
+<td style="text-align: left;"><p>SQL92</p></td>
+<td style="text-align: left;"><p>PostgreSQL</p></td>
+<td style="text-align: left;"><p>MySQL</p></td>
+<td style="text-align: left;"><p>go-sqlserver (SQLite)</p></td>
+<td style="text-align: left;"><p>SQLite</p></td>
 </tr>
 </tbody>
 </table>
