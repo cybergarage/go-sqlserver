@@ -119,6 +119,8 @@
 
 ## See also
 
+In reality, **go-sqlserver** acts as a simple communication protocol conversion proxy, and does not perform any data type conversion in request queries.
+
 -   [sql.executor.go](https://github.com/cybergarage/go-sqlserver/blob/main/sql/executor.go)
 
 ## References

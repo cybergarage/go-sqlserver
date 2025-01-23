@@ -18,6 +18,8 @@ include::data/dml_query.csv[]
 
 == See also
 
+In reality, **go-sqlserver** acts as a simple communication protocol conversion proxy and basically transfers the query to SQLite without converting the request query.
+
 - https://github.com/cybergarage/go-sqlserver/blob/main/sql/executor.go[sql.executor.go]
 
 == References

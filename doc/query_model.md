@@ -132,6 +132,8 @@
 
 ## See also
 
+In reality, **go-sqlserver** acts as a simple communication protocol conversion proxy and basically transfers the query to SQLite without converting the request query.
+
 -   [sql.executor.go](https://github.com/cybergarage/go-sqlserver/blob/main/sql/executor.go)
 
 ## References
