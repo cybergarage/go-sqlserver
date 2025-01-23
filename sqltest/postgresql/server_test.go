@@ -67,6 +67,8 @@ func TestServer(t *testing.T) {
 
 		if setting.isPasswordEnabled {
 			t.Setenv("GO_SQLSERVER_AUTH_ENABLED", "true")
+			t.Setenv("GO_SQLSERVER_AUTH_PLAIN_0_USERNAME", username)
+			t.Setenv("GO_SQLSERVER_AUTH_PLAIN_0_PASSWORD", password)
 		} else {
 			t.Setenv("GO_SQLSERVER_AUTH_ENABLED", "false")
 		}
@@ -78,6 +80,9 @@ func TestServer(t *testing.T) {
 			t.Error(err)
 			return
 		}
+
+		defer func() {
+		}()
 
 		client := postgresql.NewDefaultClient()
 		if setting.isTLSEnabled {
@@ -95,19 +100,16 @@ func TestServer(t *testing.T) {
 		defer client.Close()
 		if err != nil {
 			t.Error(err)
-			return
 		}
 
 		err = client.Ping()
 		if err != nil {
 			t.Error(err)
-			return
 		}
 
 		err = server.Stop()
 		if err != nil {
 			t.Error(err)
-			return
 		}
 	}
 }
