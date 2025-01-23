@@ -7,6 +7,10 @@
 include::data/data_type.csv[]
 |====
 
+== See also
+
+- https://github.com/cybergarage/go-sqlserver/blob/main/sql/executor.go[sql.executor.go]
+
 == References
 
 * https://en.wikipedia.org/wiki/SQL-92[SQL-92 - Wikipedia]

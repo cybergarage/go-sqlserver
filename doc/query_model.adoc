@@ -16,6 +16,10 @@ include::data/ddl_query.csv[]
 include::data/dml_query.csv[]
 |====
 
+== See also
+
+- https://github.com/cybergarage/go-sqlserver/blob/main/sql/executor.go[sql.executor.go]
+
 == References
 
 * https://en.wikipedia.org/wiki/SQL-92[SQL-92 - Wikipedia]
