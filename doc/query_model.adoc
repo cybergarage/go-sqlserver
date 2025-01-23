@@ -18,7 +18,6 @@ include::data/dml_query.csv[]
 
 == References
 
-
 * https://en.wikipedia.org/wiki/SQL-92[SQL-92 - Wikipedia]
 ** https://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt[The SQL-92 standard]
 * https://dev.mysql.com[MySQL]
@@ -27,3 +26,4 @@ include::data/dml_query.csv[]
 ** https://www.postgresql.org/docs/current/sql.html[The SQL Language]
 * https://sqlite.org[SQLite]
 ** https://www.sqlite.org/lang.html[SQL As Understood By SQLite]
+* https://jakewheat.github.io/sql-overview/index.html[SQL overview]

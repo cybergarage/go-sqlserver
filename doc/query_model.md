@@ -147,3 +147,5 @@
 -   [SQLite](https://sqlite.org)
 
     -   [SQL As Understood By SQLite](https://www.sqlite.org/lang.html)
+
+-   [SQL overview](https://jakewheat.github.io/sql-overview/index.html)
