@@ -5,10 +5,10 @@ go 1.24
 require (
 	github.com/cybergarage/go-authenticator v1.0.4
 	github.com/cybergarage/go-logger v1.3.9
-	github.com/cybergarage/go-mysql v1.2.1
+	github.com/cybergarage/go-mysql v1.3.0
 	github.com/cybergarage/go-postgresql v1.6.3
-	github.com/cybergarage/go-sqlparser v1.4.2
-	github.com/cybergarage/go-sqltest v1.4.3
+	github.com/cybergarage/go-sqlparser v1.5.0
+	github.com/cybergarage/go-sqltest v1.5.0
 	github.com/cybergarage/go-tracing v1.1.4
 	github.com/ncruces/go-sqlite3 v0.21.3
 	github.com/prometheus/client_golang v1.20.5
@@ -25,7 +25,7 @@ require (
 	github.com/cybergarage/go-safecast v1.2.5 // indirect
 	github.com/cybergarage/go-sasl v1.2.5 // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
-	github.com/go-sql-driver/mysql v1.8.1 // indirect
+	github.com/go-sql-driver/mysql v1.9.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
@@ -54,7 +54,7 @@ require (
 	go.uber.org/atomic v1.10.0 // indirect
 	go.uber.org/multierr v1.9.0 // indirect
 	golang.org/x/crypto v0.31.0 // indirect
-	golang.org/x/exp v0.0.0-20241210194714-1829a127f884 // indirect
+	golang.org/x/exp v0.0.0-20250218142911-aa4b98e5adaa // indirect
 	golang.org/x/sys v0.28.0 // indirect
 	golang.org/x/text v0.21.0 // indirect
 	google.golang.org/protobuf v1.34.2 // indirect
