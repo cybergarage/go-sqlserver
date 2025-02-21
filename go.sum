@@ -12,6 +12,8 @@ github.com/cybergarage/go-authenticator v1.0.4 h1:sxv18cyh9geewmmbFytFjqDQIZxqZb
 github.com/cybergarage/go-authenticator v1.0.4/go.mod h1:mcJk22zUiOtQ7oJFMrVaDiYc/gIhelLem7wsSQ9CQMo=
 github.com/cybergarage/go-logger v1.3.8 h1:Law2nkLjH5tJDNISMVUjT7F46x4DaZuBUyWULMs30zY=
 github.com/cybergarage/go-logger v1.3.8/go.mod h1:a7B/AZjPoA1W8EU/458vdCv6YWtRJI7Q9rofUcZjiho=
+github.com/cybergarage/go-logger v1.3.9 h1:X6P9HJYJc5TSn+CrOwcub3VspvVrlt/WMT++f8G+XjA=
+github.com/cybergarage/go-logger v1.3.9/go.mod h1:SU5vzAFJOTs89JXk+Jn89RaNmcR07parcJgnW4e8aDw=
 github.com/cybergarage/go-mysql v1.2.1 h1:NmjhCww8k+LlNO5HoUOdtELFBhL1UqIUUv/soP//0yY=
 github.com/cybergarage/go-mysql v1.2.1/go.mod h1:AMmh/7aztOKXm4i5P5T7Z9/BrDrplFeamBKrBlvrgYk=
 github.com/cybergarage/go-postgresql v1.6.3 h1:TT5m2tii3+gWtvWg0HNsh9BqMRJpvfh3yNGZE7o2WYE=
