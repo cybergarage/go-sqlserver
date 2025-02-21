@@ -14,6 +14,8 @@ github.com/cybergarage/go-logger v1.3.9 h1:X6P9HJYJc5TSn+CrOwcub3VspvVrlt/WMT++f
 github.com/cybergarage/go-logger v1.3.9/go.mod h1:SU5vzAFJOTs89JXk+Jn89RaNmcR07parcJgnW4e8aDw=
 github.com/cybergarage/go-mysql v1.3.0 h1:zp5JToqYchS/+YfXY5yqc99g6NkAYFHFqSSuENh9DBo=
 github.com/cybergarage/go-mysql v1.3.0/go.mod h1:/VkbkobN7EtaQKXctxELkFHVYnLm1wvKkoJQ5AeBDu4=
+github.com/cybergarage/go-postgresql v1.6.1-0.20250221074952-1a85bdaeee4b h1:isOTC5zs79kWNOJgg5j1WDFHh8eZtfGeJz2Smh0iHk4=
+github.com/cybergarage/go-postgresql v1.6.1-0.20250221074952-1a85bdaeee4b/go.mod h1:/MQDgCmxpNcQVSjxZnaEs/OpmuNmohiPMQ4sN0Wf98c=
 github.com/cybergarage/go-postgresql v1.6.3 h1:TT5m2tii3+gWtvWg0HNsh9BqMRJpvfh3yNGZE7o2WYE=
 github.com/cybergarage/go-postgresql v1.6.3/go.mod h1:8By1pIuv6fX4DOFTgz5vzfB4f8+jL05EC0SZGOQSIXg=
 github.com/cybergarage/go-safecast v1.2.5 h1:ZDiKmdsE15RTKETRXKAKbYTDIhAzNONwJEfCaxmhkvU=
