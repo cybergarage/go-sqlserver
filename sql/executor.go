@@ -23,6 +23,7 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/net"
 	"github.com/cybergarage/go-sqlparser/sql/query"
 	sql "github.com/cybergarage/go-sqlparser/sql/query/response/resultset"
+	"github.com/cybergarage/go-sqlparser/sql/system"
 )
 
 // Begin should handle a BEGIN statement.
@@ -224,6 +225,34 @@ func (server *server) Select(conn net.Conn, stmt query.Select) (sql.ResultSet, e
 
 // SystemSelect should handle a system SELECT statement.
 func (server *server) SystemSelect(conn net.Conn, stmt query.Select) (sql.ResultSet, error) {
-	log.Debugf("%v", stmt)
-	return nil, errors.NewErrNotImplemented("SystemSelect")
+	q := stmt.String()
+	log.Debugf("%v", q)
+
+	switch {
+	case system.IsSchemaColumsQuery(stmt):
+		sysStmt, err := system.NewSchemaColumnsStatement(
+			system.WithSchemaColumnsStatementSelect(stmt),
+		)
+		if err != nil {
+			return nil, err
+		}
+		dbName := sysStmt.DatabaseName()
+		tblNames := sysStmt.TableNames()
+		schemas := []query.Schema{}
+		for _, tblName := range tblNames {
+			db, err := server.LookupDatabase(dbName)
+			if err != nil {
+				return nil, err
+			}
+			tbl, err := db.LookupT
+			Table(conn, dbName, tblName)
+			if err != nil {
+				return nil, err
+			}
+			schemas = append(schemas, tbl.Schema)
+		}
+		return system.NewSchemaColumnsResultSetFromSchemas(schemas)
+	}
+
+	return nil, errors.NewErrNotImplemented(fmt.Sprintf("SystemSelect: %s", stmt.String()))
 }
