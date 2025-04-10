@@ -42,27 +42,27 @@ func NewResultSetDataTypeFrom(ct *dbsql.ColumnType) (sql.DataType, error) {
 	s := strings.ToUpper(ct.DatabaseTypeName())
 	switch {
 	case (0 <= strings.Index(s, "INT")):
-		return query.IntegerData, nil
+		return query.IntegerType, nil
 	case strings.HasPrefix(s, "REAL"):
-		return query.RealData, nil
+		return query.RealType, nil
 	case strings.HasPrefix(s, "FLOAT"):
-		return query.FloatData, nil
+		return query.FloatType, nil
 	case strings.HasPrefix(s, "DOUBLE"):
-		return query.DoubleData, nil
+		return query.DoubleType, nil
 	case strings.HasPrefix(s, "TEXT"):
-		return query.TextData, nil
+		return query.TextType, nil
 	case (0 <= strings.Index(s, "VARCHAR")):
-		return query.TextData, nil
+		return query.TextType, nil
 	case strings.HasPrefix(s, "BLOB"):
-		return query.BlobData, nil
+		return query.BlobType, nil
 	case strings.HasPrefix(s, "BINARY"):
-		return query.BlobData, nil
+		return query.BlobType, nil
 	case strings.HasPrefix(s, "NUMERIC"):
-		return query.RealData, nil
+		return query.RealType, nil
 	case strings.HasPrefix(s, "TIMESTAMP"):
-		return query.TimeStampData, nil
+		return query.TimeStampType, nil
 	case strings.HasPrefix(s, "DATETIME"):
-		return query.DateTimeData, nil
+		return query.DateTimeType, nil
 	}
 	return 0, errors.New("unsupported data type")
 }
@@ -168,19 +168,19 @@ func (rs *resultset) Row() (sql.Row, error) {
 	for n, column := range rs.schema.Columns() {
 		dt := column.DataType()
 		switch dt {
-		case query.IntegerData:
+		case query.IntegerType:
 			var v int
 			dest[n] = &v
-		case query.RealData, query.FloatData, query.DoubleData:
+		case query.RealType, query.FloatType, query.DoubleType:
 			var v float64
 			dest[n] = &v
-		case query.TextData:
+		case query.TextType:
 			var v string
 			dest[n] = &v
-		case query.BlobData:
+		case query.BlobType:
 			var v []byte
 			dest[n] = &v
-		case query.TimeStampData, query.DateTimeData:
+		case query.TimeStampType, query.DateTimeType:
 			var v time.Time
 			dest[n] = &v
 		default:
