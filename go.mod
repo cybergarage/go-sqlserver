@@ -7,7 +7,7 @@ require (
 	github.com/cybergarage/go-logger v1.3.9
 	github.com/cybergarage/go-mysql v1.3.0
 	github.com/cybergarage/go-postgresql v1.6.1-0.20250221074952-1a85bdaeee4b
-	github.com/cybergarage/go-sqlparser v1.5.1-0.20250410035348-82e88a7067f0
+	github.com/cybergarage/go-sqlparser v1.5.1-0.20250417105919-f3349375c686
 	github.com/cybergarage/go-sqltest v1.5.0
 	github.com/cybergarage/go-tracing v1.1.4
 	github.com/ncruces/go-sqlite3 v0.21.3
