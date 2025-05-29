@@ -32,7 +32,7 @@ type ResultSetOption func(*resultset) error
 type resultset struct {
 	rows         *dbsql.Rows
 	schema       sql.Schema
-	rowsAffected uint64
+	rowsAffected uint
 }
 
 // NewResultSetDataTypeFrom creates a new result set data type from a column type.
@@ -119,7 +119,7 @@ func WithResultSetResult(result dbsql.Result) ResultSetOption {
 		if err != nil {
 			return err
 		}
-		rs.rowsAffected = uint64(rowsAffected)
+		rs.rowsAffected = uint(rowsAffected)
 		return nil
 	}
 }
@@ -216,7 +216,7 @@ func (rs *resultset) Row() (sql.Row, error) {
 }
 
 // RowsAffected returns the number of rows affected.
-func (rs *resultset) RowsAffected() uint64 {
+func (rs *resultset) RowsAffected() uint {
 	return rs.rowsAffected
 }
 
