@@ -22,7 +22,7 @@ require (
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.5 // indirect
-	github.com/cybergarage/go-safecast v1.3.1 // indirect
+	github.com/cybergarage/go-safecast v1.3.3 // indirect
 	github.com/cybergarage/go-sasl v1.2.5 // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
 	github.com/go-sql-driver/mysql v1.9.0 // indirect
