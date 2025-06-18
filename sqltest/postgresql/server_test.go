@@ -29,7 +29,7 @@ const (
 )
 
 func TestServer(t *testing.T) {
-	log.SetStdoutDebugEnbled(true)
+	log.EnableStdoutDebug(true)
 
 	defer func() {
 		t.Setenv("GO_SQLSERVER_AUTH_ENABLED", "false")
