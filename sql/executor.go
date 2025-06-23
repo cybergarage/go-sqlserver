@@ -236,23 +236,21 @@ func (server *server) SystemSelect(conn net.Conn, stmt query.Select) (sql.Result
 		if err != nil {
 			return nil, err
 		}
-		/* TODO: Implement the logic to retrieve the schema columns.
-		dbName := sysStmt.DatabaseName()
-		tblNames := sysStmt.TableNames()
-		schemas := []query.Schema{}
-			for _, tblName := range tblNames {
-				db, err := server.LookupDatabase(dbName)
-				if err != nil {
-					return nil, err
-				}
-				tbl, err := db.LookupTable(conn, dbName, tblName)
-				if err != nil {
-					return nil, err
-				}
-				schemas = append(schemas, tbl.Schema)
-			}
-		return system.NewSchemaColumnsResultSetFromSchemas(schemas)
-		*/
+		// dbName := conn.Database()
+		// tblNames := stmt.From().TableNames()
+		// schemas := []query.Schema{}
+		// for _, tblName := range tblNames {
+		// 	db, err := server.LookupDatabase(dbName)
+		// 	if err != nil {
+		// 		return nil, err
+		// 	}
+		// 		tbl, err := db.LookupTable(conn, dbName, tblName)
+		// 		if err != nil {
+		// 			return nil, err
+		// 		}
+		// 		schemas = append(schemas, tbl.Schema)
+		// }
+		// return system.NewSchemaColumnsResultSetFromSchemas(schemas)
 		return nil, errors.NewErrNotImplemented(fmt.Sprintf("SystemSelect: %s", stmt.String()))
 	}
 
