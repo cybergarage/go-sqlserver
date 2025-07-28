@@ -30,7 +30,7 @@ See the following guide to learn about how to get started.
 
 # Related Projects
 
-The `go-sqlserver` is being developed in collaboration with the following Cybergarage projects:
+The `go-sqlserver` is developed in collaboration with the following Cybergarage projects:
 
 - [go-postgresql](https://github.com/cybergarage/go-postgresql) ![go postgresql](https://img.shields.io/github/v/tag/cybergarage/go-postgresql)
 - [go-mysql](https://github.com/cybergarage/go-mysql) ![go mysql](https://img.shields.io/github/v/tag/cybergarage/go-mysql)
