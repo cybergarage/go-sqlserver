@@ -1,6 +1,10 @@
 module github.com/cybergarage/go-sqlserver
 
-go 1.25
+<<<<<<< HEAD
+go 1.22
+=======
+go 1.22
+>>>>>>> cd034a1 (Update go.mod)
 
 require (
 	github.com/cybergarage/go-authenticator v1.0.4
