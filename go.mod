@@ -8,7 +8,7 @@ require (
 	github.com/cybergarage/go-mysql v1.3.2-0.20250831025031-0ffa0fb72950
 	github.com/cybergarage/go-postgresql v1.6.6-0.20250831025031-7be8237217ac
 	github.com/cybergarage/go-sqlparser v1.6.1-0.20250617035917-ed0ae4240277
-	github.com/cybergarage/go-sqltest v1.6.2-0.20250606100156-a91df13ec312
+	github.com/cybergarage/go-sqltest v1.6.2-0.20250831025031-2defa87a5c98
 	github.com/cybergarage/go-tracing v1.1.5
 	github.com/ncruces/go-sqlite3 v0.21.3
 	github.com/prometheus/client_golang v1.20.5
