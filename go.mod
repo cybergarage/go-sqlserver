@@ -4,7 +4,7 @@ go 1.25
 
 require (
 	github.com/cybergarage/go-authenticator v1.0.5
-	github.com/cybergarage/go-logger v1.3.11
+	github.com/cybergarage/go-logger v1.3.12
 	github.com/cybergarage/go-mysql v1.3.2-0.20250831025031-0ffa0fb72950
 	github.com/cybergarage/go-postgresql v1.6.6-0.20250831025031-7be8237217ac
 	github.com/cybergarage/go-sqlparser v1.6.1-0.20250617035917-ed0ae4240277
