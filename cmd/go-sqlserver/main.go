@@ -26,7 +26,7 @@ import (
 )
 
 func main() {
-	log.SetSharedLogger(log.NewStdoutLogger(log.LevelError))
+	log.SetDefault(log.NewStdoutLogger(log.LevelError))
 
 	server := sql.NewServer()
 

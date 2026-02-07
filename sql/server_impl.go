@@ -118,8 +118,11 @@ func (server *server) setupLogger() error {
 		return err
 	}
 
-	level := log.GetLevelFromString(levelStr)
-	log.SetSharedLogger(log.NewStdoutLogger(level))
+	level, err := log.NewLevelFromString(levelStr)
+	if err != nil {
+		return err
+	}
+	log.SetDefault(log.NewStdoutLogger(level))
 
 	return nil
 }
