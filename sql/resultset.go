@@ -67,7 +67,7 @@ func NewResultSetDataTypeFrom(ct *dbsql.ColumnType) (sql.DataType, error) {
 	return 0, errors.New("unsupported data type")
 }
 
-// NewResultSetColumn creates a new result set column from a column name and type.
+// NewResultSetColumnFrom creates a new result set column from a column type.
 func NewResultSetColumnFrom(name string, ct *dbsql.ColumnType) (sql.Column, error) {
 	dt, err := NewResultSetDataTypeFrom(ct)
 	if err != nil {

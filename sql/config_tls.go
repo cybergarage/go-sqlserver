@@ -47,7 +47,7 @@ func (config *TLSConf) SetTLSEnabled(enabled bool) {
 	config.enabled = enabled
 }
 
-// IsEnabled returns true if the TLS is enabled.
+// IsTLSEnabled returns true if TLS is enabled.
 func (config *TLSConf) IsTLSEnabled() bool {
 	return config.enabled
 }
@@ -79,7 +79,7 @@ func (config *TLSConf) SetServerCertFile(file string) error {
 	return nil
 }
 
-// SetRootCertFile sets a SSL root certificates.
+// SetRootCertFiles sets a SSL root certificate files.
 func (config *TLSConf) SetRootCertFiles(files ...string) error {
 	certs := make([][]byte, len(files))
 	for n, file := range files {
